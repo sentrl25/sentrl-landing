@@ -1,200 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRL AUSTRALIA: R&D Compliance & Field-Data Platform</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom Colors based on the SENTRL Branding */
-        :root {
-            --color-action: #007BFF; /* Vibrant Blue - Logo/CTA Color (Neon Glow) */
-            --color-text-dark: #1D3557; /* Deep Blue/Charcoal (Used for inner contrast) */
-            --color-bg-dark: #101010; /* Very Dark Background */
-            --color-bg-card: #1A1A1A; /* Darker Card Background */
-        }
-        .text-action { color: var(--color-action); }
-        .bg-action { background-color: var(--color-action); }
-        .hover\:bg-action-dark:hover { background-color: #0056b3; }
-        .text-text-dark { color: var(--color-text-dark); }
-        .bg-text-dark { background-color: var(--color-text-dark); }
-        
-        /* Font stack for a technical, modern look */
-        body { font-family: 'Inter', 'Roboto', sans-serif; background-color: var(--color-bg-dark); color: white; }
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>SENTRL — R&D Compliance Intelligence Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --sentrl-cyan: #00f2ff;
+      --sentrl-cyan-soft: #6bffff;
+      --sentrl-blue: #03a9f4;
+      --bg-deep: #02070d;
+      --bg-panel: rgba(3, 17, 32, 0.92);
+      --border-soft: rgba(0, 242, 255, 0.25);
+      --text-main: #e6fbff;
+      --text-muted: #7b8ea4;
+    }
 
-        /* Custom glow effect for headlines and action elements */
-        .neon-glow {
-            text-shadow: 0 0 5px var(--color-action), 0 0 10px var(--color-action);
-        }
-    </style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+        "Roboto", sans-serif;
+      background: radial-gradient(circle at top, #07192b 0, #02070d 45%, #000 100%);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Background particles */
+    .bg-particles::before,
+    .bg-particles::after {
+      content: "";
+      position: fixed;
+      inset: -10%;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(0, 242, 255, 0.36) 0, transparent 55%),
+        radial-gradient(circle at 80% 10%, rgba(0, 172, 255, 0.25) 0, transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(0, 242, 255, 0.18) 0, transparent 55%);
+      opacity: 0.5;
+      mix-blend-mode: screen;
+      z-index: -2;
+      animation: drift 28s linear infinite alternate;
+    }
+
+    .bg-particles::after {
+      background-image:
+        radial-gradient(circle at 30% 30%, rgba(107, 255, 255, 0.18) 0, transparent 60%),
+        radial-gradient(circle at 70% 75%, rgba(3, 169, 244, 0.3) 0, transparent 60%);
+      opacity: 0.35;
+      filter: blur(4px);
+      animation-duration: 40s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(-10px, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(10px, 10px, 0) scale(1.03);
+      }
+      100% {
+        transform: translate3d(-6px, 4px, 0) scale(1.01);
+      }
+    }
+
+    /* Top nav blur */
+    .nav-glass {
+      background: linear-gradient(
+          to bottom,
+          rgba(2, 7, 13, 0.94),
+          rgba(2, 7, 13, 0.8)
+        );
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0, 242, 255, 0.12);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Neon + glass helpers */
+    .neon-text {
+      color: var(--sentrl-cyan);
+      text-shadow: 0 0 12px rgba(0, 242, 255, 0.9),
+        0 0 40px rgba(0, 242, 255, 0.7);
+    }
+
+    .tag-chip {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 242, 255, 0.45);
+      background: radial-gradient(circle at 0 0, rgba(0, 242, 255, 0.25), transparent),
+        rgba(2, 11, 24, 0.85);
+      box-shadow: 0 0 18px rgba(0, 242, 255, 0.35);
+    }
+
+    .panel-glass {
+      background: linear-gradient(
+          130deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(0, 242, 255, 0.02)
+        ),
+        var(--bg-panel);
+      border-radius: 26px;
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 0 0 1px rgba(0, 242, 255, 0.05),
+        0 30px 60px rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+    }
+
+    /* Video frame */
+    .video-shell {
+      position: relative;
+      border-radius: 30px;
+      padding: 3px;
+      background: conic-gradient(
+        from 220deg,
+        rgba(0, 242, 255, 0.9),
+        rgba(3, 169, 244, 0.1),
+        rgba(0, 242, 255, 0.7),
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 242, 255, 1)
+      );
+      box-shadow:
+        0 0 32px rgba(0, 242, 255, 0.55),
+        0 40px 80px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    .video-shell::before {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 242, 255, 0.35);
+      opacity: 0.3;
+      filter: blur(3px);
+      pointer-events: none;
+    }
+
+    .video-inner {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #061421 0, #02070d 55%);
+    }
+
+    .video-overlay-lines {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.08) 1px,
+          transparent 1px
+        ),
+        radial-gradient(circle at 10% 10%, rgba(0, 242, 255, 0.18) 0, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(3, 169, 244, 0.26) 0, transparent 55%);
+      background-size: 100% 2px, auto, auto;
+      mix-blend-mode: soft-light;
+      opacity: 0.34;
+      pointer-events: none;
+      animation: scan 18s linear infinite;
+    }
+
+    @keyframes scan {
+      0% {
+        transform: translateY(10%);
+      }
+      50% {
+        transform: translateY(-10%);
+      }
+      100% {
+        transform: translateY(12%);
+      }
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 0 0, #6bffff, #03a9f4);
+      color: #02070d;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow:
+        0 0 24px rgba(0, 242, 255, 0.75),
+        0 20px 40px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(0, 242, 255, 0.7);
+      transition: transform 0.18s ease, box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.5),
+        transparent 35%,
+        transparent 65%,
+        rgba(255, 255, 255, 0.35)
+      );
+      opacity: 0;
+      transform: translateX(-40%);
+      transition: opacity 0.2s ease, transform 0.4s ease;
+      mix-blend-mode: screen;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow:
+        0 0 34px rgba(0, 242, 255, 0.96),
+        0 30px 60px rgba(0, 0, 0, 0.94);
+      background: radial-gradient(circle at 10% 0, #ffffff, #03a9f4);
+    }
+
+    .btn-primary:hover::before {
+      opacity: 0.9;
+      transform: translateX(30%);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid rgba(123, 142, 164, 0.6);
+      color: var(--text-main);
+      background: rgba(2, 11, 24, 0.85);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+      transition: border-color 0.15s ease, color 0.15s ease,
+        background 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(0, 242, 255, 0.7);
+      color: var(--sentrl-cyan-soft);
+      background: radial-gradient(circle at 0 0, rgba(3, 169, 244, 0.4), #02070d);
+      transform: translateY(-1px);
+    }
+
+    /* Section titles underline */
+    .section-heading {
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-heading::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.4rem;
+      width: 64%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(0, 242, 255, 1),
+        rgba(3, 169, 244, 0)
+      );
+      box-shadow: 0 0 14px rgba(0, 242, 255, 0.9);
+    }
+
+    /* Inputs */
+    .field {
+      background: rgba(7, 20, 36, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(70, 88, 110, 0.9);
+      color: var(--text-main);
+      padding: 0.9rem 1.2rem;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease,
+        background 0.16s ease;
+    }
+
+    .field::placeholder {
+      color: rgba(123, 142, 164, 0.8);
+    }
+
+    .field:focus {
+      border-color: rgba(0, 242, 255, 0.85);
+      box-shadow: 0 0 18px rgba(0, 242, 255, 0.65);
+      background: radial-gradient(circle at 0 0, rgba(0, 242, 255, 0.16), #050f1d);
+    }
+
+    textarea.field {
+      border-radius: 20px;
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    @media (max-width: 768px) {
+      .video-shell {
+        border-radius: 24px;
+      }
+      .video-inner {
+        border-radius: 20px;
+      }
+    }
+  </style>
 </head>
-<body>
 
-    <header class="sticky top-0 z-50 bg-bg-card shadow-lg" style="background-color: var(--color-bg-card);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
-            <a href="#" class="text-3xl font-extrabold text-action neon-glow">SENTRL <span class="text-sm font-light text-gray-400">AUSTRALIA</span></a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#solution" class="text-gray-300 hover:text-action transition duration-150">Platform</a>
-                <a href="#offerings" class="text-gray-300 hover:text-action transition duration-150">Consultancy</a>
-                <a href="#benefits" class="text-gray-300 hover:text-action transition duration-150">Benefits</a>
-                <a href="#contact" class="px-5 py-3 text-lg font-semibold text-white bg-action rounded-xl hover:bg-action-dark transition duration-150 neon-glow">Book Assessment</a>
-            </nav>
-            <button class="md:hidden text-action text-2xl" aria-label="Toggle Menu">
-                &#9776;
-            </button>
+<body class="bg-particles">
+  <!-- NAVBAR -->
+  <header class="fixed inset-x-0 top-0 z-40 nav-glass">
+    <div
+      class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 flex items-center justify-between h-16"
+    >
+      <div class="flex items-center gap-3">
+        <div
+          class="h-9 w-9 rounded-2xl border border-cyan-400/50 flex items-center justify-center shadow-[0_0_24px_rgba(0,242,255,0.7)] bg-gradient-to-br from-cyan-400/70 via-cyan-500/30 to-slate-900"
+        >
+          <span class="text-xl font-black tracking-tight text-slate-950">
+            S
+          </span>
         </div>
-    </header>
-
-    <main>
-        <section id="hero" class="pt-24 pb-32" style="background-color: var(--color-bg-dark);">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-center">
-                <div class="space-y-6">
-                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white">
-                        <span class="text-action neon-glow">Audit-Proof</span> Your R&D Claims. Maximize Your Return.
-                    </h1>
-                    <p class="text-xl text-gray-300">
-                        SENTRL is the field-data and compliance platform leveraging Systems Engineering principles to capture accurate, structured evidence for RDTI claims in the construction, energy, and electrical sectors.
-                    </p>
-                    <a href="#contact" class="inline-block px-12 py-4 text-xl font-semibold text-white bg-action rounded-xl shadow-lg hover:bg-action-dark transition duration-300 transform hover:scale-105 neon-glow">
-                        Secure a Free Compliance Assessment
-                    </a>
-                    <p class="text-sm pt-2 text-gray-500">Northern Territory–built technology with global potential.</p>
-                </div>
-                <div class="md:order-last relative">
-                    <div class="aspect-video bg-bg-card rounded-2xl flex items-center justify-center p-8 border-4 border-action/50 shadow-2xl" style="background-color: var(--color-bg-card);">
-                        <span class="text-action text-center text-lg">[Image placeholder: Stylized, dark-mode graphic showing the SENTRL app interface overlayed with data flows and the company logo's glow effect.]</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="offerings" class="py-24" style="background-color: var(--color-bg-dark);">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-16 text-white">The SENTRL Solution: Unified Compliance and Efficiency</h2>
-
-                <div class="grid lg:grid-cols-2 gap-10">
-
-                    <div class="p-8 rounded-xl shadow-2xl transition duration-300 hover:shadow-action/50 border border-action/30" style="background-color: var(--color-bg-card);">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <span class="text-4xl text-action font-extrabold">&#9881;</span>
-                            <h3 class="text-2xl font-semibold text-white">The SENTRL Field-Data Platform</h3>
-                        </div>
-                        <p class="text-gray-400 mb-6">
-                            A proprietary, audit-ready compliance platform that eliminates fragmented data by ensuring technicians capture *all* required R&D evidence at the source.
-                        </p>
-                        <ul class="space-y-3 text-gray-300">
-                            <li class="flex items-start">
-                                <span class="text-action mr-3 mt-1">&#10003;</span>
-                                <div><strong class="font-medium text-white">Immutable Evidence:</strong> Automated GPS, timestamping, and labour hour logging.</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-action mr-3 mt-1">&#10003;</span>
-                                <div><strong class="font-medium text-white">Structured Documentation:</strong> Captures installation variations and experimental notes in an audit-defensible format.</div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="p-8 rounded-xl shadow-2xl transition duration-300 hover:shadow-action/50 border border-action/30" style="background-color: var(--color-bg-card);">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <span class="text-4xl text-action font-extrabold">&#128172;</span>
-                            <h3 class="text-2xl font-semibold text-white">Systems Engineering Consultancy</h3>
-                        </div>
-                        <p class="text-gray-400 mb-6">
-                            Specialist advisory focused on increasing operational efficiency and maximizing compliant claim size through automated technical and administrative systems.
-                        </p>
-                        <ul class="space-y-3 text-gray-300">
-                            <li class="flex items-start">
-                                <span class="text-action mr-3 mt-1">&#10003;</span>
-                                <div><strong class="font-medium text-white">AI-Driven Workflows:</strong> Implementation of advanced agents to manage data flow and compliance checks automatically.</div>
-                            </li>
-                            <li class="flex items-start">
-                                <span class="text-action mr-3 mt-1">&#10003;</span>
-                                <div><strong class="font-medium text-white">Compliance Deep Dive:</strong> Expert guidance on maximizing eligible activities and creating a defensible R&D framework.</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="benefits" class="py-24" style="background-color: var(--color-bg-dark);">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center mb-16 text-white">Guaranteed Outcomes: Compliance Meets ROI</h2>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    
-                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
-                        <div class="text-5xl text-action mb-3 neon-glow">$$$</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Maximized Claims</h3>
-                        <p class="text-gray-400 text-sm">Every eligible activity is defensibly documented, increasing the final RDTI return value.</p>
-                    </div>
-
-                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
-                        <div class="text-5xl text-action mb-3">&#128737;</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Zero Audit Risk</h3>
-                        <p class="text-gray-400 text-sm">Move away from scattered files to a single, structured, audit-proof evidence repository.</p>
-                    </div>
-
-                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
-                        <div class="text-5xl text-action mb-3">&#9201;</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Time Efficiency</h3>
-                        <p class="text-gray-400 text-sm">Automated and AI-driven workflows free up high-value engineering and administrative time.</p>
-                    </div>
-
-                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
-                        <div class="text-5xl text-action mb-3">&#128640;</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Future-Proofed</h3>
-                        <p class="text-gray-400 text-sm">A scalable platform that establishes a modern, high-tech standard for technical operations.</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <section id="contact" class="py-24" style="background-color: var(--color-bg-dark);">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-                <h2 class="text-4xl font-bold text-center mb-12 text-action neon-glow">Ready to Implement Audit-Proof R&D Systems?</h2>
-                <p class="text-center text-lg mb-10 text-gray-300">
-                    Connect with SENTRL's Engineers today for a confidential strategy session and live platform demonstration.
-                </p>
-
-                <form class="space-y-6 p-10 rounded-xl shadow-2xl border border-action/40" style="background-color: var(--color-bg-card);">
-                    <input type="text" placeholder="Your Full Name" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
-                    <input type="text" placeholder="Company Name" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
-                    <input type="email" placeholder="Work Email" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
-                    <textarea placeholder="How can SENTRL help you?" rows="4" class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white"></textarea>
-                    
-                    <button type="submit" class="w-full p-5 text-xl font-bold text-white bg-action rounded-lg hover:bg-action-dark transition duration-300 shadow-lg neon-glow">
-                        Book Your Confidential RDTI Strategy Session
-                    </button>
-
-                    <div class="text-center text-sm text-gray-500 pt-2">
-                        <p>Your data is secured using advanced systems engineering protocols.</p>
-                    </div>
-                </form>
-            </div>
-        </section>
-        <section class="py-20" style="background-color: var(--color-bg-dark);">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-center mb-10 text-white">Frequently Asked Questions</h2>
-                <div class="space-y-4">
-                    <div class="p-5 rounded-lg border border-action/30" style="background-color: var(--color-bg-card);">
-                        <h3 class="text-xl font-semibold text-white">How does SENTRL reduce our audit risk?</h3>
-                        <p class="text-gray-400 mt-2">By structuring all field documentation (GPS, timestamps, photos, engineering notes) into a single, immutable, and audit-ready data ledger.</p>
-                    </div>
-                    <div class="p-5 rounded-lg border border-action/30" style="background-color: var(--color-bg-card);">
-                        <h3 class="text-xl font-semibold text-white">Is the AI-driven agent implementation compulsory?</h3>
-                        <p class="text-gray-400 mt-2">No, our platform can be implemented standalone, but the AI consultancy accelerates operational efficiency and ensures maximum compliance coverage.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        </main>
-
-    <footer class="py-10 text-white" style="background-color: var(--color-bg-dark);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm border-t border-action/50 pt-8">
-            <p class="mb-4 text-action font-bold neon-glow">SENTRL AUSTRALIA (Systems Engineering Network for Testing, Research and Laboratories)</p>
-            <p class="mb-2 text-gray-400">&copy; 2025 SENTRL. All Rights Reserved. Northern Territory–Built Technology.</p>
-            <p class="text-gray-400">R&D Tax Incentive Compliance Platform & Systems Consultancy.</p>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold tracking-[0.25em] uppercase text-slate-200">
+            SENTRL
+          </div>
+          <div class="text-[10px] text-slate-400">
+            Systems Engineering Network for Testing, Research & Laboratories
+          </div>
         </div>
-    </footer>
-    </body>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-xs font-medium">
+        <a href="#platform" class="text-slate-300 hover:text-cyan-300">Platform</a>
+        <a href="#consulting" class="text-slate-300 hover:text-cyan-300">Consulting</a>
+        <a href="#benefits" class="text-slate-300 hover:text-cyan-300">Outcomes</a>
+        <a
+          href="#contact"
+          class="px-4 py-2 btn-secondary text-xs uppercase tracking-[0.16em]"
+        >
+          Talk to SENTRL
+        </a>
+      </nav>
+    </div>
+  </header>
 
-</html>
+  <!-- MAIN -->
+  <main
