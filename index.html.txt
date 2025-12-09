@@ -1,0 +1,201 @@
+do you know what this code is:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENTRL AUSTRALIA: R&D Compliance & Field-Data Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Colors based on the SENTRL Branding */
+        :root {
+            --color-action: #007BFF; /* Vibrant Blue - Logo/CTA Color (Neon Glow) */
+            --color-text-dark: #1D3557; /* Deep Blue/Charcoal (Used for inner contrast) */
+            --color-bg-dark: #101010; /* Very Dark Background */
+            --color-bg-card: #1A1A1A; /* Darker Card Background */
+        }
+        .text-action { color: var(--color-action); }
+        .bg-action { background-color: var(--color-action); }
+        .hover\:bg-action-dark:hover { background-color: #0056b3; }
+        .text-text-dark { color: var(--color-text-dark); }
+        .bg-text-dark { background-color: var(--color-text-dark); }
+        
+        /* Font stack for a technical, modern look */
+        body { font-family: 'Inter', 'Roboto', sans-serif; background-color: var(--color-bg-dark); color: white; }
+
+        /* Custom glow effect for headlines and action elements */
+        .neon-glow {
+            text-shadow: 0 0 5px var(--color-action), 0 0 10px var(--color-action);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky top-0 z-50 bg-bg-card shadow-lg" style="background-color: var(--color-bg-card);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+            <a href="#" class="text-3xl font-extrabold text-action neon-glow">SENTRL <span class="text-sm font-light text-gray-400">AUSTRALIA</span></a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#solution" class="text-gray-300 hover:text-action transition duration-150">Platform</a>
+                <a href="#offerings" class="text-gray-300 hover:text-action transition duration-150">Consultancy</a>
+                <a href="#benefits" class="text-gray-300 hover:text-action transition duration-150">Benefits</a>
+                <a href="#contact" class="px-5 py-3 text-lg font-semibold text-white bg-action rounded-xl hover:bg-action-dark transition duration-150 neon-glow">Book Assessment</a>
+            </nav>
+            <button class="md:hidden text-action text-2xl" aria-label="Toggle Menu">
+                &#9776;
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="pt-24 pb-32" style="background-color: var(--color-bg-dark);">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white">
+                        <span class="text-action neon-glow">Audit-Proof</span> Your R&D Claims. Maximize Your Return.
+                    </h1>
+                    <p class="text-xl text-gray-300">
+                        SENTRL is the field-data and compliance platform leveraging Systems Engineering principles to capture accurate, structured evidence for RDTI claims in the construction, energy, and electrical sectors.
+                    </p>
+                    <a href="#contact" class="inline-block px-12 py-4 text-xl font-semibold text-white bg-action rounded-xl shadow-lg hover:bg-action-dark transition duration-300 transform hover:scale-105 neon-glow">
+                        Secure a Free Compliance Assessment
+                    </a>
+                    <p class="text-sm pt-2 text-gray-500">Northern Territory–built technology with global potential.</p>
+                </div>
+                <div class="md:order-last relative">
+                    <div class="aspect-video bg-bg-card rounded-2xl flex items-center justify-center p-8 border-4 border-action/50 shadow-2xl" style="background-color: var(--color-bg-card);">
+                        <span class="text-action text-center text-lg">[Image placeholder: Stylized, dark-mode graphic showing the SENTRL app interface overlayed with data flows and the company logo's glow effect.]</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="offerings" class="py-24" style="background-color: var(--color-bg-dark);">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16 text-white">The SENTRL Solution: Unified Compliance and Efficiency</h2>
+
+                <div class="grid lg:grid-cols-2 gap-10">
+
+                    <div class="p-8 rounded-xl shadow-2xl transition duration-300 hover:shadow-action/50 border border-action/30" style="background-color: var(--color-bg-card);">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="text-4xl text-action font-extrabold">&#9881;</span>
+                            <h3 class="text-2xl font-semibold text-white">The SENTRL Field-Data Platform</h3>
+                        </div>
+                        <p class="text-gray-400 mb-6">
+                            A proprietary, audit-ready compliance platform that eliminates fragmented data by ensuring technicians capture *all* required R&D evidence at the source.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-action mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-medium text-white">Immutable Evidence:</strong> Automated GPS, timestamping, and labour hour logging.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-action mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-medium text-white">Structured Documentation:</strong> Captures installation variations and experimental notes in an audit-defensible format.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-8 rounded-xl shadow-2xl transition duration-300 hover:shadow-action/50 border border-action/30" style="background-color: var(--color-bg-card);">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <span class="text-4xl text-action font-extrabold">&#128172;</span>
+                            <h3 class="text-2xl font-semibold text-white">Systems Engineering Consultancy</h3>
+                        </div>
+                        <p class="text-gray-400 mb-6">
+                            Specialist advisory focused on increasing operational efficiency and maximizing compliant claim size through automated technical and administrative systems.
+                        </p>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-action mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-medium text-white">AI-Driven Workflows:</strong> Implementation of advanced agents to manage data flow and compliance checks automatically.</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-action mr-3 mt-1">&#10003;</span>
+                                <div><strong class="font-medium text-white">Compliance Deep Dive:</strong> Expert guidance on maximizing eligible activities and creating a defensible R&D framework.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="benefits" class="py-24" style="background-color: var(--color-bg-dark);">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-16 text-white">Guaranteed Outcomes: Compliance Meets ROI</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
+                        <div class="text-5xl text-action mb-3 neon-glow">$$$</div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Maximized Claims</h3>
+                        <p class="text-gray-400 text-sm">Every eligible activity is defensibly documented, increasing the final RDTI return value.</p>
+                    </div>
+
+                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
+                        <div class="text-5xl text-action mb-3">&#128737;</div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Zero Audit Risk</h3>
+                        <p class="text-gray-400 text-sm">Move away from scattered files to a single, structured, audit-proof evidence repository.</p>
+                    </div>
+
+                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
+                        <div class="text-5xl text-action mb-3">&#9201;</div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Time Efficiency</h3>
+                        <p class="text-gray-400 text-sm">Automated and AI-driven workflows free up high-value engineering and administrative time.</p>
+                    </div>
+
+                    <div class="p-6 text-center shadow-lg rounded-xl border border-action/20 transition duration-300 hover:shadow-action/70" style="background-color: var(--color-bg-card);">
+                        <div class="text-5xl text-action mb-3">&#128640;</div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Future-Proofed</h3>
+                        <p class="text-gray-400 text-sm">A scalable platform that establishes a modern, high-tech standard for technical operations.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="py-24" style="background-color: var(--color-bg-dark);">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                <h2 class="text-4xl font-bold text-center mb-12 text-action neon-glow">Ready to Implement Audit-Proof R&D Systems?</h2>
+                <p class="text-center text-lg mb-10 text-gray-300">
+                    Connect with SENTRL's Engineers today for a confidential strategy session and live platform demonstration.
+                </p>
+
+                <form class="space-y-6 p-10 rounded-xl shadow-2xl border border-action/40" style="background-color: var(--color-bg-card);">
+                    <input type="text" placeholder="Your Full Name" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
+                    <input type="text" placeholder="Company Name" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
+                    <input type="email" placeholder="Work Email" required class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white">
+                    <textarea placeholder="How can SENTRL help you?" rows="4" class="w-full p-4 rounded bg-gray-900 border border-gray-700 focus:ring-action focus:border-action text-white"></textarea>
+                    
+                    <button type="submit" class="w-full p-5 text-xl font-bold text-white bg-action rounded-lg hover:bg-action-dark transition duration-300 shadow-lg neon-glow">
+                        Book Your Confidential RDTI Strategy Session
+                    </button>
+
+                    <div class="text-center text-sm text-gray-500 pt-2">
+                        <p>Your data is secured using advanced systems engineering protocols.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="py-20" style="background-color: var(--color-bg-dark);">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-10 text-white">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="p-5 rounded-lg border border-action/30" style="background-color: var(--color-bg-card);">
+                        <h3 class="text-xl font-semibold text-white">How does SENTRL reduce our audit risk?</h3>
+                        <p class="text-gray-400 mt-2">By structuring all field documentation (GPS, timestamps, photos, engineering notes) into a single, immutable, and audit-ready data ledger.</p>
+                    </div>
+                    <div class="p-5 rounded-lg border border-action/30" style="background-color: var(--color-bg-card);">
+                        <h3 class="text-xl font-semibold text-white">Is the AI-driven agent implementation compulsory?</h3>
+                        <p class="text-gray-400 mt-2">No, our platform can be implemented standalone, but the AI consultancy accelerates operational efficiency and ensures maximum compliance coverage.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+
+    <footer class="py-10 text-white" style="background-color: var(--color-bg-dark);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm border-t border-action/50 pt-8">
+            <p class="mb-4 text-action font-bold neon-glow">SENTRL AUSTRALIA (Systems Engineering Network for Testing, Research and Laboratories)</p>
+            <p class="mb-2 text-gray-400">&copy; 2025 SENTRL. All Rights Reserved. Northern Territory–Built Technology.</p>
+            <p class="text-gray-400">R&D Tax Incentive Compliance Platform & Systems Consultancy.</p>
+        </div>
+    </footer>
+    </body>
+</html>
