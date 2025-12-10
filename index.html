@@ -1,306 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SENTRL — Engineered Automation</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>SENTRL — Engineered Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-:root {
-  --c1: #53FEFF;
-  --c2: #27ECFF;
-  --c3: #0094FF;
-  --bg: #03070D;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-}
+  <style>
+    :root {
+      --c1: #53FEFF; /* primary neon */
+      --c2: #27ECFF; /* soft secondary */
+      --c3: #0094FF; /* accent blue */
+      --bg: #03070D; /* background */
+    }
 
-/* HERO */
-.hero {
-  width: 100%;
-  aspect-ratio: 16/7;
-  overflow: hidden;
-  background: #000;
-  position: relative; /* allows overlap */
-}
-.hero video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
-}
+    * {
+      box-sizing: border-box;
+    }
 
-/* ============================================
-     TITLE OVERLAY (SUBTITLE REMAINS BELOW)
-   ============================================ */
-.hero-title-only {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%) translateY(45%);
-  z-index: 30;
-  text-align: center;
-  width: 100%;
-  pointer-events: none;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
 
-.hero-title-only .title {
-  font-size: clamp(2.3rem, 4vw, 3.2rem);
-  font-weight: 700;
-  color: #f8feff;
-  text-shadow:
-    0 0 4px #00ffff,
-    0 0 12px #00ffff,
-    0 0 26px #0094ff;
-}
+    /* HERO */
+    .hero {
+      width: 100%;
+      aspect-ratio: 16/7;
+      overflow: hidden;
+      background: #000000;
+      position: relative;
+    }
 
-@media (max-width: 640px) {
-  .hero-title-only {
-    transform: translateX(-50%) translateY(35%);
-  }
-}
+    .hero video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
+    }
 
-/* STANDARD TEXT CONTAINER BELOW HERO */
-.wrap {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 6rem 1.5rem 4rem;
-  text-align: center;
-}
+    /* GENERAL WRAPPER */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
 
-/* SUBTITLE (NORMAL POSITION BELOW HERO) */
-.sub {
-  font-size: 1.05rem;
-  max-width: 760px;
-  margin: 1.4rem auto 2.8rem auto;
-  opacity: 0.9;
-  line-height: 1.55;
-  color: #d8faff;
-}
+    /* TITLE: overlap hero via negative margin-top */
+    .title {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #f8feff;
+      letter-spacing: -0.02em;
+      margin-top: -3.5rem;      /* pulls ONLY the title up */
+      margin-bottom: 1.8rem;    /* keeps breathing room to subtitle */
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
 
-/* CTA BUTTON */
-.cta {
-  display: inline-block;
-  padding: 1rem 2.4rem;
-  border-radius: 40px;
-  background: radial-gradient(circle at 30% 0%, #1b2733 0%, #00ffff 70%, #0094ff 100%);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  box-shadow:
-    0 0 6px rgba(0,255,255,.9),
-    0 0 20px rgba(0,255,255,.85),
-    0 0 40px rgba(0,148,255,.9);
-  text-shadow: 0 0 3px rgba(255,255,255,1);
-  border: 1px solid #53feff;
-  transition: 0.25s;
-}
-.cta:hover {
-  box-shadow:
-    0 0 8px rgba(0,255,255,1),
-    0 0 26px rgba(0,255,255,.95),
-    0 0 50px rgba(0,148,255,.95);
-  transform: translateY(-2px);
-}
+    @media (max-width: 640px) {
+      .title {
+        margin-top: -2.5rem;    /* gentler overlap on mobile */
+      }
+    }
 
-/* GRID + CARDS */
-.grid {
-  max-width: 950px;
-  margin: 3.2rem auto 0;
-  display: grid;
-  gap: 1.6rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-}
-.card {
-  padding: 1.8rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(83,254,255,0.14);
-  border-radius: 14px;
-  backdrop-filter: blur(8px);
-  transition: .25s;
-  text-align: left;
-}
-.card:hover {
-  border-color: var(--c1);
-  box-shadow: 0 0 24px rgba(83,254,255,0.35);
-  transform: translateY(-3px);
-}
-.card-title {
-  color: var(--c1);
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: .55rem;
-}
-.card-txt {
-  font-size: .85rem;
-  opacity: .82;
-  line-height: 1.45;
-  color: #e3f7ff;
-}
+    .sub {
+      font-size: 1.05rem;
+      max-width: 760px;
+      margin: 0 auto 2.8rem auto;
+      opacity: 0.9;
+      line-height: 1.55;
+      color: #d8faff;
+    }
 
-/* LABELS + HEADINGS */
-.section-label {
-  font-size: .75rem;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: rgba(183,244,255,.9);
-  margin-bottom: .75rem;
-  text-shadow:
-    0 0 4px #00ffff,
-    0 0 12px #00ffff,
-    0 0 26px #0094ff;
-}
-.section-heading {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #f8feff;
-  margin-bottom: 1rem;
-  text-shadow:
-    0 0 4px #00ffff,
-    0 0 12px #00ffff,
-    0 0 26px #0094ff;
-}
+    /* CTA BUTTON */
+    .cta {
+      display: inline-block;
+      padding: 1rem 2.4rem;
+      border-radius: 40px;
+      background: radial-gradient(circle at 30% 0%, #1b2733 0%, #00ffff 70%, #0094ff 100%);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow:
+        0 0 6px rgba(0,255,255,.9),
+        0 0 20px rgba(0,255,255,.85),
+        0 0 40px rgba(0,148,255,.9);
+      text-shadow: 0 0 3px rgba(255,255,255,1);
+      border: 1px solid #53feff;
+      text-decoration: none;
+      transition: 0.25s;
+      cursor: pointer;
+    }
 
-/* VALUE PROP */
-.vp-list { list-style: none; padding: 0; margin: 1.8rem auto 0; max-width: 720px; text-align: left; }
-.vp-list li {
-  font-size: .95rem;
-  margin-bottom: .85rem;
-  color: #d8faff;
-}
-.vp-bullet {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--c1);
-  margin-right: .5rem;
-  box-shadow: 0 0 10px rgba(83,254,255,.8);
-  vertical-align: middle;
-}
+    .cta:hover {
+      box-shadow:
+        0 0 8px rgba(0,255,255,1),
+        0 0 26px rgba(0,255,255,.95),
+        0 0 50px rgba(0,148,255,.95);
+      transform: translateY(-2px);
+    }
 
-/* CONTACT */
-.contact h2 {
-  color: #f8feff;
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: .75rem;
-  text-shadow:
-    0 0 4px #00ffff,
-    0 0 12px #00ffff,
-    0 0 26px #0094ff;
-}
-.contact-sub {
-  font-size: .9rem;
-  opacity: .9;
-  max-width: 640px;
-  margin: 0 auto 2rem;
-  color: #d8faff;
-}
-.input {
-  width: 100%;
-  padding: .85rem;
-  margin-bottom: 1rem;
-  background: #0A101A;
-  border: 1px solid #122029;
-  color: #fff;
-  border-radius: 6px;
-  font-size: .9rem;
-}
-.full { width: 100%; margin-top: .4rem; }
+    /* GRID + CARDS */
+    .grid {
+      max-width: 950px;
+      margin: 3.2rem auto 0;
+      display: grid;
+      gap: 1.6rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
 
-/* FOOTER */
-.ftr {
-  text-align: center;
-  margin-top: 4rem;
-  padding: 2.2rem 1rem;
-  color: #85b7c9;
-  font-size: .8rem;
-  border-top: 1px solid rgba(83,254,255,.18);
-}
+    .card {
+      padding: 1.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(83, 254, 255, 0.14);
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+      transition: 0.25s;
+      text-align: left;
+    }
 
-</style>
+    .card:hover {
+      border-color: var(--c1);
+      box-shadow: 0 0 24px rgba(83, 254, 255, 0.35);
+      transform: translateY(-3px);
+    }
+
+    .card-title {
+      color: var(--c1);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .card-txt {
+      font-size: 0.85rem;
+      opacity: 0.82;
+      line-height: 1.45;
+      color: #e3f7ff;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(183, 244, 255, 0.9);
+      margin-bottom: 0.75rem;
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
+
+    .section-heading {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #f8fcff;
+      margin-bottom: 1rem;
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
+
+    .vp-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.8rem auto 0 auto;
+      max-width: 720px;
+      text-align: left;
+    }
+
+    .vp-list li {
+      font-size: 0.95rem;
+      margin-bottom: 0.85rem;
+      color: #d8faff;
+    }
+
+    .vp-bullet {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--c1);
+      margin-right: 0.5rem;
+      box-shadow: 0 0 10px rgba(83, 254, 255, 0.8);
+      vertical-align: middle;
+    }
+
+    .contact h2 {
+      color: #f8feff;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
+
+    .contact-sub {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      max-width: 640px;
+      margin: 0 auto 2rem auto;
+      color: #d8faff;
+    }
+
+    .input {
+      width: 100%;
+      padding: 0.85rem;
+      margin-bottom: 1rem;
+      background: #0A101A;
+      border: 1px solid #122029;
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .input::placeholder {
+      color: #6e8ca0;
+    }
+
+    .full {
+      width: 100%;
+      margin-top: 0.4rem;
+    }
+
+    .ftr {
+      text-align: center;
+      margin-top: 4rem;
+      padding: 2.2rem 1rem;
+      color: #85b7c9;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(83, 254, 255, 0.18);
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 3rem 1.25rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- HERO -->
+  <div class="hero">
+    <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
+  </div>
 
-<!-- HERO -->
-<div class="hero">
-  <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
-
-  <!-- ONLY TITLE OVERLAPS -->
-  <div class="hero-title-only">
+  <!-- HERO TEXT (TITLE OVERLAPS, SUBTITLE NORMAL) -->
+  <div class="wrap">
     <div class="title">Automate. Operate. Dominate.</div>
-  </div>
-</div>
-
-<!-- SUBTITLE + CTA BELOW HERO -->
-<div class="wrap">
-  <div class="sub">
-    SENTRL combines systems engineering, AI automation, and workflow architecture to help businesses operate smarter, faster, and with greater precision.
+    <div class="sub">
+      SENTRL combines systems engineering, AI automation, and workflow architecture to help businesses operate smarter, faster, and with greater precision.
+    </div>
+    <a href="#contact" class="cta">Activate Your Automation Advantage</a>
   </div>
 
-  <a href="#contact" class="cta">Activate Your Automation Advantage</a>
-</div>
+  <!-- SENTRL PROTOCOL -->
+  <div class="wrap" id="sentrl-protocol">
+    <div class="section-label">THE SENTRL PROTOCOL</div>
+    <div class="section-heading">Your unfair advantage, engineered into six pillars.</div>
+    <div class="sub" style="margin-top:0.5rem;margin-bottom:2.5rem;">
+      SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories — structures your automation strategy into a disciplined technical framework.
+    </div>
 
-<!-- PROTOCOL -->
-<div class="wrap" id="sentrl-protocol">
-  <div class="section-label">THE SENTRL PROTOCOL</div>
-  <div class="section-heading">Your unfair advantage, engineered into six pillars.</div>
-  <div class="sub" style="margin-top:0.5rem;margin-bottom:2.5rem;">
-    SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories — structures your automation strategy into a disciplined technical framework.
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">S — Systems Engineering</div>
+        <div class="card-txt">
+          Foundational architecture that eliminates inefficiency and creates predictable, intelligent operational flow across your business.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">E — Engineering Network</div>
+        <div class="card-txt">
+          Interconnected automation layers working together as a unified, self-correcting operational engine instead of isolated tools.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">N — Network for Testing</div>
+        <div class="card-txt">
+          Continuous optimisation loops that validate changes, expose bottlenecks early, and protect performance under load.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">T — Testing &amp; Validation</div>
+        <div class="card-txt">
+          Audit-ready documentation, structured evidence, and integrity checks so every automated workflow is defensible and traceable.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">R — Research Architecture</div>
+        <div class="card-txt">
+          Deep operational mapping that reveals automation leverage points, risk zones, and high-value optimisation pathways.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">L — Laboratories of Innovation</div>
+        <div class="card-txt">
+          Controlled environments for modelling, simulating, and deploying next-generation workflows with speed and reduced risk.
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="grid">
-    <div class="card"><div class="card-title">S — Systems Engineering</div><div class="card-txt">Foundational architecture that eliminates inefficiency and creates predictable, intelligent operational flow across your business.</div></div>
-    <div class="card"><div class="card-title">E — Engineering Network</div><div class="card-txt">Interconnected automation layers working together as a unified, self-correcting operational engine instead of isolated tools.</div></div>
-    <div class="card"><div class="card-title">N — Network for Testing</div><div class="card-txt">Continuous optimisation loops that validate changes, expose bottlenecks early, and protect performance under load.</div></div>
-    <div class="card"><div class="card-title">T — Testing &amp; Validation</div><div class="card-txt">Audit-ready documentation, structured evidence, and integrity checks so every automated workflow is defensible and traceable.</div></div>
-    <div class="card"><div class="card-title">R — Research Architecture</div><div class="card-txt">Deep operational mapping that reveals automation leverage points, risk zones, and high-value optimisation pathways.</div></div>
-    <div class="card"><div class="card-title">L — Laboratories of Innovation</div><div class="card-txt">Controlled environments for modelling, simulating, and deploying next-generation workflows with speed and reduced risk.</div></div>
-  </div>
-</div>
-
-<!-- VALUE PROP -->
-<div class="wrap" id="value">
-  <div class="section-label">WHY HIGH-PERFORMANCE OPERATORS CHOOSE SENTRL</div>
-  <div class="section-heading">Speed, control, and results that compound.</div>
-  <ul class="vp-list">
-    <li><span class="vp-bullet"></span><strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems.</li>
-    <li><span class="vp-bullet"></span><strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams.</li>
-    <li><span class="vp-bullet"></span><strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.</li>
-  </ul>
-</div>
-
-<!-- CONTACT -->
-<div id="contact" class="wrap contact" style="padding-top:3rem;">
-  <div class="section-label">THE ACCESS POINT</div>
-  <h2>Claim Your SENTRL Advantage Today.</h2>
-  <div class="contact-sub">
-    If your competitors adopt this before you do, they will outpace you—fast. Share a snapshot of your operation and we will map where SENTRL can deploy immediate impact.
+  <!-- VALUE PROP -->
+  <div class="wrap" id="value">
+    <div class="section-label">WHY HIGH-PERFORMANCE OPERATORS CHOOSE SENTRL</div>
+    <div class="section-heading">Speed, control, and results that compound.</div>
+    <ul class="vp-list">
+      <li><span class="vp-bullet"></span><strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems.</li>
+      <li><span class="vp-bullet"></span><strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams.</li>
+      <li><span class="vp-bullet"></span><strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.</li>
+    </ul>
   </div>
 
-  <form class="contact-box" style="max-width:650px;margin:0 auto;text-align:left;">
-    <input class="input" placeholder="Full Name">
-    <input class="input" placeholder="Company">
-    <input class="input" placeholder="Work Email">
-    <textarea class="input" rows="4" placeholder="How can SENTRL help?"></textarea>
-    <button class="cta full" type="submit">Submit</button>
-  </form>
-</div>
+  <!-- CONTACT -->
+  <div id="contact" class="wrap contact" style="padding-top:3rem;">
+    <div class="section-label">THE ACCESS POINT</div>
+    <h2>Claim Your SENTRL Advantage Today.</h2>
+    <div class="contact-sub">
+      If your competitors adopt this before you do, they will outpace you—fast. Share a snapshot of your operation and we will map where SENTRL can deploy immediate impact.
+    </div>
 
-<div class="ftr">
-  SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories<br>
-  © 2025 SENTRL. All rights reserved.
-</div>
+    <form class="contact-box" style="max-width:650px;margin:0 auto;text-align:left;">
+      <input class="input" placeholder="Full Name">
+      <input class="input" placeholder="Company">
+      <input class="input" placeholder="Work Email">
+      <textarea class="input" rows="4" placeholder="How can SENTRL help?"></textarea>
+      <button class="cta full" type="submit">Submit</button>
+    </form>
+  </div>
 
+  <div class="ftr">
+    SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories<br>
+    © 2025 SENTRL. All rights reserved.
+  </div>
 </body>
 </html>
