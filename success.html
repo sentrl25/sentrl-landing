@@ -14,8 +14,6 @@
       --bg:#03070D;
     }
 
-    * { box-sizing: border-box; }
-
     body {
       margin:0;
       background:var(--bg);
@@ -35,7 +33,7 @@
     }
 
     .card {
-      padding:3rem 2rem 3.4rem;
+      padding:3rem 2rem 3.8rem; /* ⬅ slightly taller bottom padding */
       background:rgba(3,10,20,0.97);
       border-radius:18px;
       border:1px solid rgba(83,254,255,0.22);
@@ -54,7 +52,7 @@
 
     h1 {
       font-size:1.75rem;
-      margin:0 0 1.2rem;
+      margin:0 0 1.4rem;
       color:#f8feff;
       text-shadow:
         0 0 4px #00ffff,
@@ -66,7 +64,7 @@
       font-size:1rem;
       line-height:1.7;
       color:#d8faff;
-      margin:0 0 2.6rem;
+      margin:0 0 3.2rem;  /* ⬅ LOWERED BUTTON by adding more margin-bottom */
     }
 
     a.cta {
@@ -96,27 +94,23 @@
     }
 
     .footnote {
-      margin-top:2.2rem;
+      margin-top:2.4rem;
       font-size:0.78rem;
       color:#6e8ca0;
     }
 
     @media (max-width:640px) {
-      body {
-        padding:3rem 1.25rem;
-      }
-      .card {
-        padding:2.3rem 1.6rem 3rem;
-      }
-      h1 {
-        font-size:1.45rem;
-      }
+      body { padding:3rem 1.25rem; }
+      .card { padding:2.5rem 1.6rem 3.4rem; }
+      h1 { font-size:1.45rem; }
+      p { margin-bottom:2.8rem; } /* ⬅ balanced on mobile */
     }
   </style>
 </head>
 <body>
   <div class="shell">
     <div class="card">
+
       <div class="subtitle">Message Received</div>
 
       <h1>Thank You — Your Submission Has Been Received.</h1>
@@ -127,6 +121,7 @@
       </p>
 
       <a href="/" class="cta">Return to SENTRL</a>
+
     </div>
 
     <div class="footnote">
