@@ -17,12 +17,31 @@
 
     * { box-sizing: border-box; }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       background: var(--bg);
       color: #ffffff;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* subtle HUD-style background glow under content */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -25%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0,255,255,0.16) 0, transparent 50%),
+        radial-gradient(circle at 90% 100%, rgba(0,148,255,0.22) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* HERO */
@@ -31,7 +50,8 @@
       aspect-ratio: 16/7;
       overflow: hidden;
       background: #000000;
-      position: relative; /* for overlay positioning */
+      position: relative;
+      z-index: 2;
     }
 
     .hero video {
@@ -41,19 +61,21 @@
       filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
     }
 
-    /* TITLE OVERLAY INSIDE HERO */
+    /* hero title overlay INSIDE video */
     .hero-title {
       position: absolute;
       left: 50%;
-      bottom: 10%;
+      bottom: 12%;
       transform: translateX(-50%);
       text-align: center;
       width: 100%;
       pointer-events: none;
+      z-index: 3;
+      animation: heroFadeUp 600ms ease-out 120ms both;
     }
 
     .hero-title .title {
-      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-size: clamp(2.5rem, 4.4vw, 3.3rem);
       font-weight: 700;
       color: #f8feff;
       letter-spacing: -0.02em;
@@ -61,16 +83,13 @@
       text-shadow:
         0 0 4px #00ffff,
         0 0 12px #00ffff,
-        0 0 26px #0094ff;
+        0 0 26px #0094ff,
+        0 0 42px rgba(0,148,255,0.85);
     }
 
-    @media (max-width: 640px) {
-      .hero-title {
-        bottom: 8%;
-      }
-      .hero-title .title {
-        font-size: clamp(2rem, 6vw, 2.6rem);
-      }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translate(-50%, 14px); }
+      to   { opacity: 1; transform: translate(-50%, 0); }
     }
 
     /* GENERAL WRAPPER */
@@ -79,6 +98,8 @@
       margin: 0 auto;
       padding: 4rem 1.5rem;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
 
     .sub {
@@ -90,7 +111,13 @@
       color: #d8faff;
     }
 
-    /* CTA BUTTON */
+    /* CTA BUTTONS */
+    @keyframes ctaPulse {
+      0%   { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
+      50%  { box-shadow:0 0 10px rgba(0,255,255,1), 0 0 28px rgba(0,255,255,1), 0 0 58px rgba(0,148,255,1); }
+      100% { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
+    }
+
     .cta {
       display: inline-block;
       padding: 1rem 2.4rem;
@@ -106,16 +133,13 @@
       text-shadow: 0 0 3px rgba(255,255,255,1);
       border: 1px solid #53feff;
       text-decoration: none;
-      transition: 0.25s;
+      transition: transform 0.22s ease-out;
       cursor: pointer;
     }
 
     .cta:hover {
-      box-shadow:
-        0 0 8px rgba(0,255,255,1),
-        0 0 26px rgba(0,255,255,.95),
-        0 0 50px rgba(0,148,255,.95);
       transform: translateY(-2px);
+      animation: ctaPulse 900ms ease-in-out infinite;
     }
 
     .grid {
@@ -128,12 +152,13 @@
 
     .card {
       padding: 1.8rem;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(6, 14, 26, 0.96);
       border: 1px solid rgba(83, 254, 255, 0.14);
       border-radius: 14px;
       backdrop-filter: blur(8px);
       transition: 0.25s;
       text-align: left;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);
     }
 
     .card:hover {
@@ -147,6 +172,7 @@
       font-weight: 600;
       font-size: 1rem;
       margin-bottom: 0.55rem;
+      text-shadow: 0 0 6px rgba(0,255,255,0.6);
     }
 
     .card-txt {
@@ -250,6 +276,21 @@
       color: #85b7c9;
       font-size: 0.8rem;
       border-top: 1px solid rgba(83, 254, 255, 0.18);
+      position: relative;
+      z-index: 2;
+      background: radial-gradient(circle at 50% -80%, rgba(0,255,255,0.12) 0, transparent 60%);
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 3rem 1.25rem;
+      }
+      .hero-title {
+        bottom: 9%;
+      }
+      .hero-title .title {
+        font-size: clamp(2.1rem, 6vw, 2.7rem);
+      }
     }
   </style>
 </head>
@@ -354,7 +395,7 @@
       If your competitors adopt this before you do, they will outpace you—fast. Share a snapshot of your operation and we will map where SENTRL can deploy immediate impact.
     </div>
 
-    <!-- hidden iframe to swallow FormSubmit's thank-you page -->
+    <!-- hidden iframe to swallow FormSubmit thank-you page -->
     <iframe name="sentrl_hidden_iframe" style="display:none;"></iframe>
 
     <form
