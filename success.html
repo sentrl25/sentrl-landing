@@ -24,24 +24,54 @@
       min-height:100vh;
       display:flex;
       justify-content:center;
-      align-items:center;         /* centre card vertically on screen */
+      align-items:center;
       padding:3rem 1.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* subtle HUD glow in the background */
+    body::before {
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at 20% -10%, rgba(0,255,255,0.16) 0, transparent 50%),
+        radial-gradient(circle at 80% 110%, rgba(0,148,255,0.22) 0, transparent 55%);
+      opacity:0.9;
+      pointer-events:none;
+      z-index:0;
     }
 
     .shell {
       max-width:640px;
       width:100%;
       text-align:center;
+      position:relative;
+      z-index:1;
+    }
+
+    /* fade-up animation for the card */
+    @keyframes cardFadeUp {
+      from {
+        opacity:0;
+        transform:translateY(18px);
+      }
+      to {
+        opacity:1;
+        transform:translateY(0);
+      }
     }
 
     .card {
-      padding:2.4rem 2rem 2.6rem; /* tighter box, no wasted height */
+      padding:2.4rem 2rem 2.6rem;
       background:rgba(3,10,20,0.97);
       border-radius:18px;
       border:1px solid rgba(83,254,255,0.22);
       box-shadow:
         0 0 22px rgba(0,255,255,0.35),
         0 0 70px rgba(0,148,255,0.45);
+      animation:cardFadeUp 520ms ease-out both;
     }
 
     .subtitle {
@@ -64,14 +94,21 @@
 
     .body-copy {
       max-width:480px;
-      margin:0 auto 2rem;     /* space above button */
+      margin:0 auto 2rem;
       font-size:0.98rem;
       line-height:1.7;
       color:#d8faff;
     }
 
     .body-copy span {
-      white-space:nowrap;      /* keeps “next steps” together, no orphan “steps.” */
+      white-space:nowrap; /* keep 'next steps' together */
+    }
+
+    /* gentle pulse on hover */
+    @keyframes ctaPulse {
+      0%   { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
+      50%  { box-shadow:0 0 10px rgba(0,255,255,1), 0 0 28px rgba(0,255,255,1), 0 0 58px rgba(0,148,255,1); }
+      100% { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
     }
 
     a.cta {
@@ -89,15 +126,12 @@
       text-shadow:0 0 3px rgba(255,255,255,1);
       border:1px solid #53feff;
       text-decoration:none;
-      transition:0.25s;
+      transition:transform 0.22s ease-out;
     }
 
     a.cta:hover {
-      box-shadow:
-        0 0 8px rgba(0,255,255,1),
-        0 0 26px rgba(0,255,255,.95),
-        0 0 50px rgba(0,148,255,.95);
       transform:translateY(-2px);
+      animation:ctaPulse 900ms ease-in-out infinite;
     }
 
     .footnote {
