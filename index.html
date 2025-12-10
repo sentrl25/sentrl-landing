@@ -29,7 +29,7 @@ body {
   aspect-ratio: 16/7;
   overflow: hidden;
   background: #000;
-  position: relative; /* IMPORTANT FOR OVERLAP */
+  position: relative; /* allows overlap */
 }
 .hero video {
   width: 100%;
@@ -38,41 +38,45 @@ body {
   filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
 }
 
-/* GENERAL WRAPPER */
-.wrap {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-  text-align: center;
-}
-
 /* ============================================
-     OVERLAPPING HERO HEADING SECTION
+     TITLE OVERLAY (SUBTITLE REMAINS BELOW)
    ============================================ */
-.wrap.hero-heading {
-  position: relative;
-  margin-top: -4.5rem; /* Controls overlap — adjust as needed */
-  z-index: 20;
-}
-@media (max-width: 640px) {
-  .wrap.hero-heading {
-    margin-top: -3rem;
-  }
+.hero-title-only {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(45%);
+  z-index: 30;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
 }
 
-/* TITLE + GLOW */
-.title {
+.hero-title-only .title {
   font-size: clamp(2.3rem, 4vw, 3.2rem);
   font-weight: 700;
   color: #f8feff;
-  text-align: center;
   text-shadow:
     0 0 4px #00ffff,
     0 0 12px #00ffff,
     0 0 26px #0094ff;
 }
 
-/* SUBHEAD */
+@media (max-width: 640px) {
+  .hero-title-only {
+    transform: translateX(-50%) translateY(35%);
+  }
+}
+
+/* STANDARD TEXT CONTAINER BELOW HERO */
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 4rem;
+  text-align: center;
+}
+
+/* SUBTITLE (NORMAL POSITION BELOW HERO) */
 .sub {
   font-size: 1.05rem;
   max-width: 760px;
@@ -223,25 +227,27 @@ body {
   border-top: 1px solid rgba(83,254,255,.18);
 }
 
-@media (max-width: 640px) {
-  .wrap { padding: 3rem 1.25rem; }
-}
 </style>
-
 </head>
+
 <body>
 
 <!-- HERO -->
 <div class="hero">
   <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
+
+  <!-- ONLY TITLE OVERLAPS -->
+  <div class="hero-title-only">
+    <div class="title">Automate. Operate. Dominate.</div>
+  </div>
 </div>
 
-<!-- OVERLAPPING HEADING -->
-<div class="wrap hero-heading">
-  <div class="title">Automate. Operate. Dominate.</div>
+<!-- SUBTITLE + CTA BELOW HERO -->
+<div class="wrap">
   <div class="sub">
     SENTRL combines systems engineering, AI automation, and workflow architecture to help businesses operate smarter, faster, and with greater precision.
   </div>
+
   <a href="#contact" class="cta">Activate Your Automation Advantage</a>
 </div>
 
