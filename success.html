@@ -14,6 +14,8 @@
       --bg:#03070D;
     }
 
+    * { box-sizing: border-box; }
+
     body {
       margin:0;
       background:var(--bg);
@@ -33,7 +35,7 @@
     }
 
     .card {
-      padding:3rem 2rem 3.8rem; /* ⬅ slightly taller bottom padding */
+      padding:3rem 2rem 3rem; /* bottom padding = gap under button */
       background:rgba(3,10,20,0.97);
       border-radius:18px;
       border:1px solid rgba(83,254,255,0.22);
@@ -64,7 +66,7 @@
       font-size:1rem;
       line-height:1.7;
       color:#d8faff;
-      margin:0 0 3.2rem;  /* ⬅ LOWERED BUTTON by adding more margin-bottom */
+      margin:0 0 3rem;  /* SAME as card padding-bottom → button is centred between text + bottom */
     }
 
     a.cta {
@@ -100,17 +102,24 @@
     }
 
     @media (max-width:640px) {
-      body { padding:3rem 1.25rem; }
-      .card { padding:2.5rem 1.6rem 3.4rem; }
-      h1 { font-size:1.45rem; }
-      p { margin-bottom:2.8rem; } /* ⬅ balanced on mobile */
+      body {
+        padding:3rem 1.25rem;
+      }
+      .card {
+        padding:2.6rem 1.6rem 2.6rem; /* keep same top-bottom ratio on mobile */
+      }
+      h1 {
+        font-size:1.45rem;
+      }
+      p {
+        margin-bottom:2.6rem; /* match card bottom padding on mobile */
+      }
     }
   </style>
 </head>
 <body>
   <div class="shell">
     <div class="card">
-
       <div class="subtitle">Message Received</div>
 
       <h1>Thank You — Your Submission Has Been Received.</h1>
@@ -121,7 +130,6 @@
       </p>
 
       <a href="/" class="cta">Return to SENTRL</a>
-
     </div>
 
     <div class="footnote">
