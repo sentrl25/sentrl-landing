@@ -15,9 +15,7 @@
       --bg: #03070D; /* background */
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -33,7 +31,6 @@
       aspect-ratio: 16/7;
       overflow: hidden;
       background: #000000;
-      position: relative;
     }
 
     .hero video {
@@ -51,14 +48,14 @@
       text-align: center;
     }
 
-    /* TITLE: overlap hero via negative margin-top */
+    /* FIXED TITLE — smaller overlap, no clipping */
     .title {
       font-size: clamp(2.3rem, 4vw, 3.2rem);
       font-weight: 700;
       color: #f8feff;
       letter-spacing: -0.02em;
-      margin-top: -3.5rem;      /* pulls ONLY the title up */
-      margin-bottom: 1.8rem;    /* keeps breathing room to subtitle */
+      margin-top: -1.2rem;   /* <<< FIXED (was -3.2rem) */
+      margin-bottom: 1.8rem;
       text-shadow:
         0 0 4px #00ffff,
         0 0 12px #00ffff,
@@ -67,14 +64,14 @@
 
     @media (max-width: 640px) {
       .title {
-        margin-top: -2.5rem;    /* gentler overlap on mobile */
+        margin-top: -0.8rem; /* softer mobile overlap */
       }
     }
 
     .sub {
       font-size: 1.05rem;
       max-width: 760px;
-      margin: 0 auto 2.8rem auto;
+      margin: 1.4rem auto 2.8rem auto;
       opacity: 0.9;
       line-height: 1.55;
       color: #d8faff;
@@ -108,7 +105,6 @@
       transform: translateY(-2px);
     }
 
-    /* GRID + CARDS */
     .grid {
       max-width: 950px;
       margin: 3.2rem auto 0;
@@ -242,12 +238,6 @@
       font-size: 0.8rem;
       border-top: 1px solid rgba(83, 254, 255, 0.18);
     }
-
-    @media (max-width: 640px) {
-      .wrap {
-        padding: 3rem 1.25rem;
-      }
-    }
   </style>
 </head>
 
@@ -257,7 +247,7 @@
     <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
   </div>
 
-  <!-- HERO TEXT (TITLE OVERLAPS, SUBTITLE NORMAL) -->
+  <!-- HERO TEXT -->
   <div class="wrap">
     <div class="title">Automate. Operate. Dominate.</div>
     <div class="sub">
@@ -324,9 +314,18 @@
     <div class="section-label">WHY HIGH-PERFORMANCE OPERATORS CHOOSE SENTRL</div>
     <div class="section-heading">Speed, control, and results that compound.</div>
     <ul class="vp-list">
-      <li><span class="vp-bullet"></span><strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems.</li>
-      <li><span class="vp-bullet"></span><strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams.</li>
-      <li><span class="vp-bullet"></span><strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.</li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems, turning speed into real operational savings.
+      </li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams so efficiency directly translates into cost savings.
+      </li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.
+      </li>
     </ul>
   </div>
 
@@ -338,11 +337,23 @@
       If your competitors adopt this before you do, they will outpace you—fast. Share a snapshot of your operation and we will map where SENTRL can deploy immediate impact.
     </div>
 
-    <form class="contact-box" style="max-width:650px;margin:0 auto;text-align:left;">
-      <input class="input" placeholder="Full Name">
-      <input class="input" placeholder="Company">
-      <input class="input" placeholder="Work Email">
-      <textarea class="input" rows="4" placeholder="How can SENTRL help?"></textarea>
+    <form action="https://formsubmit.co/matt@sentrl.com.au" method="POST" class="contact-box" style="max-width:650px;margin:0 auto;text-align:left;">
+
+      <!-- FormSubmit settings -->
+      <input type="hidden" name="_subject" value="New SENTRL Website Inquiry">
+
+      <!-- TEMPORARY while DNS isn't live -->
+      <input type="hidden" name="_next" value="https://sentrl-landing.vercel.app/success.html">
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_autoresponse" value="Thanks for reaching out to SENTRL. Your message has been received and our team will review your operation snapshot and respond with next steps as soon as possible.">
+
+      <!-- Visible fields -->
+      <input class="input" name="name" placeholder="Full Name" required>
+      <input class="input" name="company" placeholder="Company">
+      <input class="input" type="email" name="email" placeholder="Work Email" required>
+      <textarea class="input" name="message" rows="4" placeholder="How can SENTRL help?" required></textarea>
+
       <button class="cta full" type="submit">Submit</button>
     </form>
   </div>
