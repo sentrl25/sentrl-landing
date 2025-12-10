@@ -15,9 +15,7 @@
       --bg: #03070D; /* background */
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -43,6 +41,36 @@
       filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
     }
 
+    /* TITLE OVERLAY INSIDE HERO */
+    .hero-title {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%) translateY(35%);
+      text-align: center;
+      z-index: 10;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .hero-title .title {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #f8feff;
+      letter-spacing: -0.02em;
+      margin: 0;
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
+
+    @media (max-width: 640px) {
+      .hero-title {
+        transform: translateX(-50%) translateY(28%);
+      }
+    }
+
     /* GENERAL WRAPPER */
     .wrap {
       max-width: 1080px;
@@ -51,30 +79,15 @@
       text-align: center;
     }
 
-    /* TITLE: overlap hero via negative margin-top */
-    .title {
-      font-size: clamp(2.3rem, 4vw, 3.2rem);
-      font-weight: 700;
-      color: #f8feff;
-      letter-spacing: -0.02em;
-      margin-top: -3.5rem;      /* pulls ONLY the title up */
-      margin-bottom: 1.8rem;    /* keeps breathing room to subtitle */
-      text-shadow:
-        0 0 4px #00ffff,
-        0 0 12px #00ffff,
-        0 0 26px #0094ff;
-    }
-
-    @media (max-width: 640px) {
-      .title {
-        margin-top: -2.5rem;    /* gentler overlap on mobile */
-      }
+    /* extra top space so content clears the hero overlay */
+    .wrap.hero-intro {
+      padding-top: 5rem;
     }
 
     .sub {
       font-size: 1.05rem;
       max-width: 760px;
-      margin: 0 auto 2.8rem auto;
+      margin: 1.4rem auto 2.8rem auto;
       opacity: 0.9;
       line-height: 1.55;
       color: #d8faff;
@@ -108,7 +121,6 @@
       transform: translateY(-2px);
     }
 
-    /* GRID + CARDS */
     .grid {
       max-width: 950px;
       margin: 3.2rem auto 0;
@@ -247,6 +259,9 @@
       .wrap {
         padding: 3rem 1.25rem;
       }
+      .wrap.hero-intro {
+        padding-top: 4rem;
+      }
     }
   </style>
 </head>
@@ -255,11 +270,15 @@
   <!-- HERO -->
   <div class="hero">
     <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
+
+    <!-- TITLE OVERLAY ONLY -->
+    <div class="hero-title">
+      <div class="title">Automate. Operate. Dominate.</div>
+    </div>
   </div>
 
-  <!-- HERO TEXT (TITLE OVERLAPS, SUBTITLE NORMAL) -->
-  <div class="wrap">
-    <div class="title">Automate. Operate. Dominate.</div>
+  <!-- INTRO (SUBTITLE + CTA) -->
+  <div class="wrap hero-intro">
     <div class="sub">
       SENTRL combines systems engineering, AI automation, and workflow architecture to help businesses operate smarter, faster, and with greater precision.
     </div>
@@ -324,9 +343,18 @@
     <div class="section-label">WHY HIGH-PERFORMANCE OPERATORS CHOOSE SENTRL</div>
     <div class="section-heading">Speed, control, and results that compound.</div>
     <ul class="vp-list">
-      <li><span class="vp-bullet"></span><strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems.</li>
-      <li><span class="vp-bullet"></span><strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams.</li>
-      <li><span class="vp-bullet"></span><strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.</li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems, turning speed into real operational savings.
+      </li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams so efficiency directly translates into cost savings.
+      </li>
+      <li>
+        <span class="vp-bullet"></span>
+        <strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.
+      </li>
     </ul>
   </div>
 
