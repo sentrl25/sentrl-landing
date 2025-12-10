@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AUTO-REDIRECT AFTER 4 SECONDS -->
+  <script>
+    setTimeout(() => {
+      document.body.classList.add("fade-out");
+      setTimeout(() => window.location.href = "/", 600);
+    }, 4000);
+  </script>
+
   <style>
     :root {
       --c1:#53FEFF;
@@ -28,9 +37,14 @@
       padding:3rem 1.5rem;
       position:relative;
       overflow:hidden;
+      transition:opacity .6s ease-out; /* fade for redirect */
     }
 
-    /* subtle HUD glow in the background */
+    body.fade-out {
+      opacity:0;
+    }
+
+    /* SUBTLE HUD GLOW + WATERMARK */
     body::before {
       content:"";
       position:absolute;
@@ -43,24 +57,33 @@
       z-index:0;
     }
 
+    /* SENTRL LOGO WATERMARK (very faint) */
+    body::after {
+      content:"S";
+      position:absolute;
+      font-size:26rem;
+      font-weight:700;
+      font-family:'Inter', sans-serif;
+      color:rgba(0,255,255,0.04);
+      filter:blur(8px);
+      left:50%;
+      top:52%;
+      transform:translate(-50%, -50%) rotate(-8deg);
+      pointer-events:none;
+      z-index:0;
+    }
+
     .shell {
       max-width:640px;
       width:100%;
       text-align:center;
       position:relative;
-      z-index:1;
+      z-index:3;
     }
 
-    /* fade-up animation for the card */
     @keyframes cardFadeUp {
-      from {
-        opacity:0;
-        transform:translateY(18px);
-      }
-      to {
-        opacity:1;
-        transform:translateY(0);
-      }
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
     .card {
@@ -72,6 +95,7 @@
         0 0 22px rgba(0,255,255,0.35),
         0 0 70px rgba(0,148,255,0.45);
       animation:cardFadeUp 520ms ease-out both;
+      backdrop-filter:blur(3px);
     }
 
     .subtitle {
@@ -100,11 +124,8 @@
       color:#d8faff;
     }
 
-    .body-copy span {
-      white-space:nowrap; /* keep 'next steps' together */
-    }
+    .body-copy span { white-space:nowrap; }
 
-    /* gentle pulse on hover */
     @keyframes ctaPulse {
       0%   { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
       50%  { box-shadow:0 0 10px rgba(0,255,255,1), 0 0 28px rgba(0,255,255,1), 0 0 58px rgba(0,148,255,1); }
@@ -138,6 +159,8 @@
       margin-top:2rem;
       font-size:0.78rem;
       color:#6e8ca0;
+      z-index:3;
+      position:relative;
     }
 
     @media (max-width:640px) {
@@ -148,6 +171,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="shell">
     <div class="card">
