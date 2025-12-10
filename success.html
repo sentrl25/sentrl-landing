@@ -9,42 +9,69 @@
   <style>
     :root {
       --c1:#53FEFF;
+      --c2:#27ECFF;
+      --c3:#0094FF;
       --bg:#03070D;
     }
-    * { box-sizing:border-box; }
+
+    * { box-sizing: border-box; }
+
     body {
       margin:0;
       background:var(--bg);
       color:#ffffff;
       font-family:'Inter',sans-serif;
-      display:flex;
-      align-items:center;
-      justify-content:center;
       min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding:4rem 1.5rem;
+    }
+
+    .shell {
+      max-width:640px;
+      width:100%;
       text-align:center;
-      padding:2rem;
     }
-    .box {
-      max-width:520px;
+
+    .card {
+      padding:2.5rem 2rem 2.8rem;
+      background:rgba(3,10,20,0.96);
+      border-radius:18px;
+      border:1px solid rgba(83,254,255,0.22);
+      box-shadow:
+        0 0 18px rgba(0,255,255,0.35),
+        0 0 60px rgba(0,148,255,0.45);
     }
+
     h1 {
-      font-size:2rem;
-      margin-bottom:1rem;
+      font-size:1.8rem;
+      margin:0 0 1rem;
       color:#f8feff;
       text-shadow:
         0 0 4px #00ffff,
         0 0 12px #00ffff,
         0 0 26px #0094ff;
     }
+
+    .subtitle {
+      font-size:0.95rem;
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      color:rgba(183,244,255,0.85);
+      margin-bottom:0.9rem;
+    }
+
     p {
       font-size:0.98rem;
-      line-height:1.6;
+      line-height:1.7;
       color:#d8faff;
-      margin-bottom:2rem;
+      margin:0 0 2rem;
     }
+
     a.cta {
       display:inline-block;
-      padding:0.9rem 2.2rem;
+      padding:0.9rem 2.6rem;
       border-radius:40px;
       background:radial-gradient(circle at 30% 0%, #1b2733 0%, #00ffff 70%, #0094ff 100%);
       color:#ffffff;
@@ -59,6 +86,7 @@
       text-decoration:none;
       transition:0.25s;
     }
+
     a.cta:hover {
       box-shadow:
         0 0 8px rgba(0,255,255,1),
@@ -66,16 +94,41 @@
         0 0 50px rgba(0,148,255,.95);
       transform:translateY(-2px);
     }
+
+    .footnote {
+      margin-top:1.8rem;
+      font-size:0.78rem;
+      color:#6e8ca0;
+    }
+
+    @media (max-width:640px) {
+      body {
+        padding:3rem 1.25rem;
+      }
+      .card {
+        padding:2rem 1.6rem 2.4rem;
+      }
+      h1 {
+        font-size:1.6rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Thank You — SENTRL Has Your Signal.</h1>
-    <p>
-      Your message has been received and routed through the SENTRL stack.<br>
-      Our team will review your operation snapshot and contact you with next steps.
-    </p>
-    <a href="/" class="cta">Return to SENTRL</a>
+  <div class="shell">
+    <div class="card">
+      <div class="subtitle">Signal Received</div>
+      <h1>Thank You — SENTRL Has Your Signal.</h1>
+      <p>
+        Your message has been routed through the SENTRL stack.<br>
+        Our team will review your operation snapshot and contact you with next steps.
+      </p>
+      <a href="/" class="cta">Return to SENTRL</a>
+    </div>
+
+    <div class="footnote">
+      SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories
+    </div>
   </div>
 </body>
 </html>
