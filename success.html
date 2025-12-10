@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You — SENTRL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --c1:#53FEFF;
+      --bg:#03070D;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      background:var(--bg);
+      color:#ffffff;
+      font-family:'Inter',sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      text-align:center;
+      padding:2rem;
+    }
+    .box {
+      max-width:520px;
+    }
+    h1 {
+      font-size:2rem;
+      margin-bottom:1rem;
+      color:#f8feff;
+      text-shadow:
+        0 0 4px #00ffff,
+        0 0 12px #00ffff,
+        0 0 26px #0094ff;
+    }
+    p {
+      font-size:0.98rem;
+      line-height:1.6;
+      color:#d8faff;
+      margin-bottom:2rem;
+    }
+    a.cta {
+      display:inline-block;
+      padding:0.9rem 2.2rem;
+      border-radius:40px;
+      background:radial-gradient(circle at 30% 0%, #1b2733 0%, #00ffff 70%, #0094ff 100%);
+      color:#ffffff;
+      font-weight:700;
+      font-size:0.9rem;
+      box-shadow:
+        0 0 6px rgba(0,255,255,.9),
+        0 0 20px rgba(0,255,255,.85),
+        0 0 40px rgba(0,148,255,.9);
+      text-shadow:0 0 3px rgba(255,255,255,1);
+      border:1px solid #53feff;
+      text-decoration:none;
+      transition:0.25s;
+    }
+    a.cta:hover {
+      box-shadow:
+        0 0 8px rgba(0,255,255,1),
+        0 0 26px rgba(0,255,255,.95),
+        0 0 50px rgba(0,148,255,.95);
+      transform:translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Thank You — SENTRL Has Your Signal.</h1>
+    <p>
+      Your message has been received and routed through the SENTRL stack.<br>
+      Our team will review your operation snapshot and contact you with next steps.
+    </p>
+    <a href="https://www.sentrl.com.au" class="cta">Return to SENTRL</a>
+  </div>
+</body>
+</html>
