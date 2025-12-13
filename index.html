@@ -23,7 +23,7 @@
                         }
                     },
                     animation: {
-                        'spin-slow': 'spin 20s linear infinite',
+                        'spin-slow': 'spin 30s linear infinite',
                     }
                 }
             }
@@ -33,31 +33,20 @@
     <style>
         body {
             background-color: #000;
-            overflow: hidden; /* Locks screen like a dashboard */
+            overflow: hidden;
             color: white;
             margin: 0;
         }
 
-        /* LOGO FIX: 
-           1. Invert turns black text WHITE (and blue icon ORANGE).
-           2. Hue-rotate 180deg turns the orange icon back to BLUE.
+        /* LOGO FIX:
+           1. Invert(1) turns Black Text -> White.
+           2. Hue-rotate(180deg) fixes the icon color shift caused by invert.
         */
         .logo-calibrated {
-            filter: invert(1) hue-rotate(180deg) brightness(1.2);
+            filter: invert(1) hue-rotate(180deg) brightness(1.5);
             width: 180px; 
             height: auto;
-        }
-
-        /* The Digital Twin Background */
-        .interface-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('merch.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.5;
-            z-index: 0;
-            filter: contrast(130%) brightness(70%) saturate(110%);
+            display: block;
         }
 
         /* Glass HUD Styling */
@@ -72,7 +61,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.85rem;
-            color: #64748b;
+            color: #94a3b8;
             transition: 0.3s;
         }
         .nav-item:hover, .nav-item.active {
@@ -86,12 +75,21 @@
 </head>
 <body class="w-screen h-screen flex flex-col justify-between relative">
 
-    <div class="interface-bg"></div>
-    <div class="absolute inset-0 bg-radial-gradient from-transparent to-black pointer-events-none z-0"></div>
+    <div class="absolute inset-0 z-0">
+        <img src="merch.jpg" 
+             alt="System Interface Background" 
+             class="w-full h-full object-cover opacity-60 filter contrast-125 brightness-75"
+             onerror="this.style.display='none'; document.body.style.backgroundColor='#1a1a1a'; alert('Error: merch.jpg not found in folder');">
+    </div>
 
-    <header class="relative z-50 flex items-center justify-between px-10 py-8 w-full border-b border-white/5 bg-black/20">
+    <div class="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black pointer-events-none z-0"></div>
+
+    <header class="relative z-50 flex items-center justify-between px-10 py-8 w-full border-b border-white/5 bg-black/20 backdrop-blur-sm">
         <div>
-            <img src="Untitled (500 x 500 px).png" alt="SENTRL" class="logo-calibrated">
+            <img src="Untitled%20(500%20x%20500%20px).png" 
+                 alt="SENTRL LOGO" 
+                 class="logo-calibrated"
+                 onerror="this.style.border='1px dashed red'; this.alt='Logo File Not Found';">
         </div>
 
         <nav class="hidden md:flex gap-10 font-mono items-center">
@@ -104,21 +102,21 @@
         </nav>
     </header>
 
-    <main class="relative z-10 flex-1 pointer-events-none">
+    <main class="relative z-10 flex-1 pointer-events-none w-full">
         
         <div class="absolute top-1/4 left-10 border-l-2 border-sentrl-cyan pl-4">
             <div class="text-[10px] text-sentrl-cyan font-mono tracking-[0.3em] mb-1">SYSTEM STATUS</div>
-            <div class="text-white font-mono text-sm leading-6">
-                <span class="text-slate-500">SECTOR:</span> AUS_EAST_01<br>
-                <span class="text-slate-500">UPTIME:</span> 99.998%<br>
-                <span class="text-slate-500">SECURITY:</span> <span class="text-green-400 animate-pulse">LOCKED</span>
+            <div class="text-white font-mono text-sm leading-6 drop-shadow-md">
+                <span class="text-slate-400">SECTOR:</span> AUS_EAST_01<br>
+                <span class="text-slate-400">UPTIME:</span> 99.998%<br>
+                <span class="text-slate-400">SECURITY:</span> <span class="text-green-400 animate-pulse">LOCKED</span>
             </div>
         </div>
 
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full flex items-center justify-center animate-spin-slow opacity-30">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] border border-white/5 rounded-full flex items-center justify-center animate-spin-slow opacity-40">
             <div class="absolute w-full h-px bg-white/10"></div>
             <div class="absolute h-full w-px bg-white/10"></div>
-            <div class="w-[580px] h-[580px] border border-dashed border-sentrl-blue/30 rounded-full"></div>
+            <div class="w-[95%] h-[95%] border border-dashed border-sentrl-blue/30 rounded-full"></div>
         </div>
 
     </main>
@@ -139,8 +137,8 @@
                 </p>
             </div>
             
-            <div class="w-14 bg-sentrl-blue/10 hover:bg-sentrl-blue text-white flex items-center justify-center transition-colors cursor-pointer border-l border-white/10">
-                <svg class="w-5 h-5 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <div class="w-14 bg-sentrl-blue/10 hover:bg-sentrl-blue text-white flex items-center justify-center transition-colors cursor-pointer border-l border-white/10 group">
+                <svg class="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </div>
         </div>
 
@@ -149,7 +147,7 @@
                 <div class="text-3xl font-mono font-bold text-white group-hover:text-sentrl-cyan">98%</div>
                 <div class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mt-1">Efficiency</div>
             </div>
-            <div class="absolute inset-2 border-t border-sentrl-cyan rounded-full animate-spin"></div>
+            <div class="absolute inset-2 border-t border-sentrl-cyan rounded-full animate-spin" style="animation-duration: 3s;"></div>
         </div>
 
     </footer>
