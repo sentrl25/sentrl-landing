@@ -1,203 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRL | SYSTEM PORTAL</title>
+    <title>SENTRL | Intelligent Infrastructure</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Rajdhani', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
                     },
                     colors: {
                         sentrl: {
-                            black: '#020408',
-                            dark: '#0a0f16',
-                            blue: '#0055FF',  /* Deep Electric Blue */
-                            cyan: '#00D4FF',  /* Highlights */
-                            glass: 'rgba(10, 15, 22, 0.75)'
+                            black: '#020617',  /* Deep Void */
+                            panel: '#0f172a',  /* Surface */
+                            blue: '#0066FF',   /* Brand Primary */
+                            cyan: '#00C2FF',   /* Brand Accent */
                         }
                     },
-                    animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-                        'scanline': 'scanline 8s linear infinite'
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
                     },
-                    keyframes: {
-                        'pulse-glow': {
-                            '0%, 100%': { opacity: 1, boxShadow: '0 0 10px #00D4FF' },
-                            '50%': { opacity: 0.5, boxShadow: '0 0 2px #00D4FF' },
-                        },
-                        'scanline': {
-                            '0%': { transform: 'translateY(-100%)' },
-                            '100%': { transform: 'translateY(100%)' }
-                        }
+                    boxShadow: {
+                        'neon': '0 0 20px rgba(0, 194, 255, 0.3)',
+                        'neon-strong': '0 0 30px rgba(0, 102, 255, 0.6)',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        body { 
-            background-color: #020408; 
-            color: #ecf0f1; 
-            overflow: hidden; /* Lock scroll for app feel */
-        }
-        
-        /* LOGO FIX: Inverts black text to white */
-        .logo-fix {
-            filter: invert(1) brightness(2) drop-shadow(0 0 5px rgba(0, 212, 255, 0.5));
+        body {
+            background-color: #020617;
+            color: #f8fafc;
         }
 
-        /* Glass Panel Styling */
-        .glass-panel {
-            background: rgba(6, 11, 20, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        /* Tech Background Grid */
+        .bg-tech-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
-        /* Tech Corners */
-        .corner-bracket {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-color: #00D4FF;
-            transition: all 0.3s ease;
+        /* Glass Morphism for Logo & Nav */
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .tr { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
-        .bl { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
 
-        /* Grid Background */
-        .grid-bg {
-            background-image: 
-                linear-gradient(rgba(0, 85, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 85, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.2;
+        .logo-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 4px;
+            padding: 8px 16px;
+            box-shadow: 0 0 15px rgba(0, 194, 255, 0.15);
+        }
+
+        /* Text Gradient */
+        .text-glow-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #00C2FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="h-screen w-screen relative flex flex-col">
+<body class="antialiased bg-sentrl-black selection:bg-sentrl-cyan selection:text-black relative">
 
-    <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 grid-bg"></div>
-        <div class="absolute inset-0 opacity-40 mix-blend-screen">
-             <img src="merch.jpg" class="w-full h-full object-cover filter contrast-125 saturate-150 hue-rotate-5">
-        </div>
-        <div class="absolute inset-0 bg-radial-gradient from-transparent to-sentrl-black"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sentrl-cyan/10 to-transparent h-[20%] w-full animate-scanline pointer-events-none"></div>
-    </div>
+    <div class="fixed inset-0 bg-tech-grid pointer-events-none z-0"></div>
 
-    <header class="relative z-50 h-20 flex items-center justify-between px-8 border-b border-sentrl-cyan/20 bg-sentrl-black/80 backdrop-blur-md">
-        <div class="w-48">
-            <img src="sentrl transparent (1).png" alt="SENTRL" class="logo-fix w-full h-auto">
-        </div>
-
-        <div class="hidden md:flex items-center gap-8 font-mono text-xs text-sentrl-cyan tracking-widest opacity-80">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                SYSTEM ONLINE
+    <nav class="fixed w-full z-50 top-0 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            
+            <div class="logo-container flex items-center justify-center">
+                <img src="Untitled (500 x 500 px).png" alt="SENTRL" class="h-10 w-auto object-contain">
             </div>
-            <div>NET_VER: 4.02.1</div>
-            <div>LATENCY: 12ms</div>
-        </div>
 
-        <button class="group relative px-6 py-2 bg-transparent border border-sentrl-cyan text-sentrl-cyan font-sans font-bold tracking-wider hover:bg-sentrl-cyan hover:text-black transition-all">
-            <span class="absolute inset-0 w-full h-full bg-sentrl-cyan/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-            <span class="relative">ACCESS PORTAL</span>
-        </button>
-    </header>
-
-    <main class="relative z-10 flex-1 flex p-8 gap-8 overflow-hidden">
-        
-        <aside class="w-20 hidden md:flex flex-col items-center gap-8 py-8 glass-panel rounded-sm">
-            <div class="w-10 h-10 flex items-center justify-center border border-sentrl-cyan/50 text-sentrl-cyan hover:bg-sentrl-cyan hover:text-black transition-colors cursor-pointer">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-            </div>
-            <div class="w-10 h-10 flex items-center justify-center border border-white/10 text-slate-500 hover:border-sentrl-cyan hover:text-sentrl-cyan transition-colors cursor-pointer">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-            </div>
-            <div class="mt-auto w-10 h-10 flex items-center justify-center border border-white/10 text-slate-500 hover:text-red-500 transition-colors cursor-pointer">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </div>
-        </aside>
-
-        <div class="flex-1 flex items-center justify-start pl-12">
-            <div class="max-w-3xl space-y-6">
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#solutions" class="text-sm font-semibold tracking-wide text-slate-400 hover:text-white transition-colors uppercase">Solutions</a>
+                <a href="#platform" class="text-sm font-semibold tracking-wide text-slate-400 hover:text-white transition-colors uppercase">Platform</a>
                 
-                <h1 class="text-7xl md:text-9xl font-bold font-sans text-white uppercase tracking-tighter leading-none" style="text-shadow: 0 0 40px rgba(0,85,255,0.6);">
-                    Sovereign<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-cyan to-white">Control.</span>
+                <a href="#contact" class="group relative px-6 py-3 bg-sentrl-blue text-white text-sm font-bold uppercase tracking-wider overflow-hidden hover:shadow-neon transition-all duration-300">
+                    <span class="relative z-10">Access Portal</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-sentrl-blue to-sentrl-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            
+            <div class="space-y-8 animate-fade-in-up">
+                <div class="inline-flex items-center gap-2 px-3 py-1 border border-sentrl-cyan/30 bg-sentrl-cyan/10 rounded-full">
+                    <span class="w-2 h-2 bg-sentrl-cyan rounded-full animate-pulse"></span>
+                    <span class="text-xs font-mono text-sentrl-cyan uppercase tracking-widest">System Online</span>
+                </div>
+
+                <h1 class="text-5xl lg:text-7xl font-display font-bold leading-[1.1] tracking-tight text-white">
+                    TOTAL <br>
+                    <span class="text-glow-gradient">DOMAIN CONTROL</span>
                 </h1>
 
-                <div class="relative glass-panel p-6 border-l-4 border-l-sentrl-blue max-w-xl">
-                    <div class="corner-bracket tr"></div>
-                    <div class="corner-bracket bl"></div>
-                    <p class="font-mono text-sentrl-cyan text-sm mb-2">> INITIATING SEQUENCE</p>
-                    <p class="text-gray-300 leading-relaxed">
-                        The definitive digital twin platform. SENTRL aggregates complex infrastructure data into a single, military-grade operational picture.
-                    </p>
-                </div>
+                <p class="text-lg text-slate-400 max-w-lg leading-relaxed">
+                    The centralized digital twin platform for Australia's critical infrastructure. Monitor assets, predict failures, and automate response in real-time.
+                </p>
 
-                <div class="flex gap-4 pt-4">
-                    <button class="px-8 py-4 bg-sentrl-blue text-white font-bold font-sans tracking-widest uppercase hover:bg-white hover:text-sentrl-black transition-colors shadow-[0_0_20px_rgba(0,85,255,0.5)]">
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <button class="px-8 py-4 bg-white text-sentrl-black font-bold uppercase tracking-widest hover:bg-slate-200 transition-colors">
                         Deploy System
                     </button>
-                    <button class="px-8 py-4 border border-white/20 text-white font-bold font-sans tracking-widest uppercase hover:border-sentrl-cyan hover:text-sentrl-cyan transition-colors">
-                        Protocol Specs
+                    <button class="px-8 py-4 border border-white/20 text-white font-bold uppercase tracking-widest hover:border-sentrl-cyan hover:text-sentrl-cyan transition-colors">
+                        View Schema
                     </button>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="w-80 hidden lg:flex flex-col gap-4">
-            <div class="glass-panel p-4 flex-1 relative overflow-hidden group">
-                <div class="absolute inset-0 bg-sentrl-blue/5 group-hover:bg-sentrl-blue/10 transition-colors"></div>
-                <h3 class="font-mono text-sentrl-cyan text-xs mb-2 border-b border-sentrl-cyan/20 pb-2">ACTIVE NODES</h3>
-                <div class="flex items-end justify-between mt-4">
-                    <span class="text-4xl font-sans font-bold text-white">842</span>
-                    <span class="text-green-400 font-mono text-xs mb-1">▲ 12%</span>
-                </div>
-                <div class="flex items-end gap-1 h-12 mt-4 border-b border-white/10 pb-1">
-                    <div class="w-1/6 bg-sentrl-blue/40 h-[40%]"></div>
-                    <div class="w-1/6 bg-sentrl-blue/60 h-[70%]"></div>
-                    <div class="w-1/6 bg-sentrl-blue/50 h-[50%]"></div>
-                    <div class="w-1/6 bg-sentrl-blue/80 h-[90%]"></div>
-                    <div class="w-1/6 bg-sentrl-blue/40 h-[60%]"></div>
-                    <div class="w-1/6 bg-sentrl-cyan h-[85%] animate-pulse"></div>
-                </div>
             </div>
 
-            <div class="glass-panel p-4 flex-1 relative group">
-                <h3 class="font-mono text-sentrl-cyan text-xs mb-2 border-b border-sentrl-cyan/20 pb-2">SECURITY STATUS</h3>
-                <div class="text-center mt-6">
-                    <div class="inline-block relative">
-                         <svg class="w-24 h-24 text-sentrl-blue animate-spin-slow" viewBox="0 0 100 100">
-                             <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="10 5" />
-                         </svg>
-                         <div class="absolute inset-0 flex items-center justify-center">
-                             <span class="font-bold text-white text-sm">SECURE</span>
-                         </div>
+            <div class="relative">
+                <div class="absolute -inset-1 bg-gradient-to-br from-sentrl-cyan to-sentrl-blue rounded-lg blur opacity-30"></div>
+                
+                <div class="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-sentrl-black/80 to-transparent opacity-60 z-10"></div>
+                    
+                    <img src="merch.jpg" alt="Dashboard Interface" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
+                    
+                    <div class="absolute bottom-6 left-6 z-20 bg-black/80 backdrop-blur border border-white/10 px-4 py-3">
+                        <div class="text-xs text-slate-400 font-mono mb-1">LIVE FEED</div>
+                        <div class="text-sm text-sentrl-cyan font-bold tracking-widest">SYD_NODE_01 // ACTIVE</div>
                     </div>
                 </div>
             </div>
         </div>
+    </header>
 
-    </main>
+    <section class="border-y border-white/5 bg-sentrl-panel/50 backdrop-blur-sm relative z-10">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <div class="text-3xl font-display font-bold text-white mb-1">12ms</div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-widest">Global Latency</div>
+            </div>
+            <div>
+                <div class="text-3xl font-display font-bold text-white mb-1">AES-256</div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-widest">Encryption Standard</div>
+            </div>
+            <div>
+                <div class="text-3xl font-display font-bold text-white mb-1">100%</div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-widest">Sovereign Data</div>
+            </div>
+            <div>
+                <div class="text-3xl font-display font-bold text-white mb-1">24/7</div>
+                <div class="text-xs font-mono text-slate-500 uppercase tracking-widest">AI Monitoring</div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="h-12 bg-sentrl-black border-t border-sentrl-cyan/20 flex items-center justify-between px-8 text-[10px] font-mono text-slate-500 uppercase z-50">
-        <div>© 2024 SENTRL AUSTRALIA PTY LTD</div>
-        <div class="flex gap-4">
-            <span>Server: AP-SOUTHEAST-2</span>
-            <span class="text-sentrl-cyan">ENCRYPTION: ENABLED</span>
+    <section id="solutions" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 max-w-2xl">
+                <h2 class="text-4xl font-display font-bold text-white mb-6">ENGINEERED FOR <span class="text-sentrl-cyan">VELOCITY</span></h2>
+                <p class="text-slate-400 text-lg">Legacy systems are blind. SENTRL aggregates disparate data streams into a cohesive, single-pane-of-glass operational picture.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group p-8 bg-sentrl-panel border border-white/5 hover:border-sentrl-cyan/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-sentrl-blue/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                    <div class="w-12 h-12 bg-sentrl-black border border-white/10 flex items-center justify-center mb-6 text-sentrl-cyan">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-display">Predictive Analytics</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">AI models that learn your infrastructure's baseline and alert you to anomalies before failure occurs.</p>
+                </div>
+
+                <div class="group p-8 bg-sentrl-panel border border-white/5 hover:border-sentrl-cyan/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-sentrl-blue/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                    <div class="w-12 h-12 bg-sentrl-black border border-white/10 flex items-center justify-center mb-6 text-sentrl-cyan">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-display">Digital Twins</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Full 3D visualization of physical assets. Inspect towers, grids, and nodes remotely with millimetric precision.</p>
+                </div>
+
+                <div class="group p-8 bg-sentrl-panel border border-white/5 hover:border-sentrl-cyan/50 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-sentrl-blue/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-150"></div>
+                    <div class="w-12 h-12 bg-sentrl-black border border-white/10 flex items-center justify-center mb-6 text-sentrl-cyan">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3 font-display">Sovereign Cloud</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Data never leaves Australian shores. Built to comply with critical infrastructure security legislation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-sentrl-blue/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-8 tracking-tight">
+                READY TO <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-cyan to-white">DEPLOY?</span>
+            </h2>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <input type="email" placeholder="Enter Work Email" class="px-6 py-4 bg-white/5 border border-white/10 text-white w-full md:w-80 focus:outline-none focus:border-sentrl-cyan transition-colors placeholder:text-slate-600">
+                <button class="px-8 py-4 bg-sentrl-blue text-white font-bold uppercase tracking-widest hover:shadow-neon-strong transition-all">
+                    Request Access
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="bg-white px-3 py-1 rounded">
+                <img src="Untitled (500 x 500 px).png" alt="SENTRL" class="h-6 w-auto">
+            </div>
+            
+            <p class="text-slate-600 text-sm font-mono uppercase">
+                &copy; 2024 SENTRL AUSTRALIA. All Rights Reserved.
+            </p>
         </div>
     </footer>
 
