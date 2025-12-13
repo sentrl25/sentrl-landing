@@ -3,157 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRL | COMMAND INTERFACE</title>
+    <title>SENTRL AUSTRALIA | Digital Twin Interface</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Rajdhani', 'sans-serif'],
-                        mono: ['Share Tech Mono', 'monospace'],
-                    },
-                    colors: {
-                        sentrl: {
-                            blue: '#0066FF',
-                            cyan: '#00D4FF',
-                            dark: '#02050a'
-                        }
-                    },
-                    animation: {
-                        'spin-slow': 'spin 30s linear infinite',
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        body {
-            background-color: #000;
-            overflow: hidden;
-            color: white;
+        /* Ensure the background image covers the entire screen and is fixed */
+        body, html {
+            height: 100%;
             margin: 0;
+            overflow: hidden; /* Prevent scrolling as it's a fixed interface */
         }
-
-        /* LOGO CALIBRATION:
-           1. Invert(1) turns Black Text -> White.
-           2. Hue-rotate(180deg) fixes the icon color shift caused by invert.
-           3. Brightness(1.5) makes it pop on the dark background.
-        */
-        .logo-calibrated {
-            filter: invert(1) hue-rotate(180deg) brightness(1.5);
-            width: 180px; 
-            height: auto;
-            display: block;
+        .bg-interface {
+            background-image: url('image_1.png'); /* Use the provided interface image as the background */
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
         }
-
-        /* Glass HUD Styling */
-        .hud-glass {
-            background: rgba(4, 8, 15, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 102, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+        /* Position the logo exactly as in the reference image */
+        .logo-container {
+            position: absolute;
+            top: 4%;
+            left: 3%;
+            width: 12%; /* Adjust width based on the reference */
         }
-
-        .nav-item {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            transition: 0.3s;
+        /* Create invisible, clickable zones for the navigation links */
+        .nav-link {
+            position: absolute;
+            top: 5%;
+            height: 5%;
+            cursor: pointer;
+            /* background-color: rgba(255, 0, 0, 0.2); /* Uncomment for debugging */
         }
-        .nav-item:hover, .nav-item.active {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
-        }
-        .nav-item.active {
-            border-bottom: 2px solid #0066FF;
-        }
+        .nav-solutions { left: 60%; width: 8%; }
+        .nav-technology { left: 69%; width: 10%; }
+        .nav-about { left: 80%; width: 8%; }
+        .nav-contact { left: 89%; width: 8%; }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col justify-between relative">
+<body>
+    <div class="bg-interface">
+        <div class="logo-container">
+            <img src="image_0.png" alt="SENTRL AUSTRALIA Logo" class="w-full">
+        </div>
 
-    <div class="absolute inset-0 z-0">
-        <img src="merch.jpg" 
-             alt="System Interface Background" 
-             class="w-full h-full object-cover opacity-60 filter contrast-125 brightness-75"
-             onerror="this.style.display='none'; document.body.style.backgroundColor='#1a1a1a'; alert('Error: merch.jpg not found in folder');">
+        <a href="#solutions" class="nav-link nav-solutions" title="Solutions"></a>
+        <a href="#technology" class="nav-link nav-technology" title="Technology"></a>
+        <a href="#about" class="nav-link nav-about" title="About Us"></a>
+        <a href="#contact" class="nav-link nav-contact" title="Contact"></a>
     </div>
-
-    <div class="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-black pointer-events-none z-0"></div>
-
-    <header class="relative z-50 flex items-center justify-between px-10 py-8 w-full border-b border-white/5 bg-black/20 backdrop-blur-sm">
-        <div>
-            <img src="Untitled%20(500%20x%20500%20px).png" 
-                 alt="SENTRL LOGO" 
-                 class="logo-calibrated"
-                 onerror="this.style.border='1px dashed red'; this.alt='Logo File Not Found';">
-        </div>
-
-        <nav class="hidden md:flex gap-10 font-mono items-center">
-            <a href="#" class="nav-item">Solutions</a>
-            <a href="#" class="nav-item active">Technology</a>
-            <a href="#" class="nav-item">Intelligence</a>
-            <a href="#" class="text-sentrl-cyan border border-sentrl-cyan/50 px-5 py-2 text-xs font-bold uppercase tracking-widest hover:bg-sentrl-cyan hover:text-black transition-all">
-                Login
-            </a>
-        </nav>
-    </header>
-
-    <main class="relative z-10 flex-1 pointer-events-none w-full">
-        
-        <div class="absolute top-1/4 left-10 border-l-2 border-sentrl-cyan pl-4">
-            <div class="text-[10px] text-sentrl-cyan font-mono tracking-[0.3em] mb-1">SYSTEM STATUS</div>
-            <div class="text-white font-mono text-sm leading-6 drop-shadow-md">
-                <span class="text-slate-400">SECTOR:</span> AUS_EAST_01<br>
-                <span class="text-slate-400">UPTIME:</span> 99.998%<br>
-                <span class="text-slate-400">SECURITY:</span> <span class="text-green-400 animate-pulse">LOCKED</span>
-            </div>
-        </div>
-
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] border border-white/5 rounded-full flex items-center justify-center animate-spin-slow opacity-40">
-            <div class="absolute w-full h-px bg-white/10"></div>
-            <div class="absolute h-full w-px bg-white/10"></div>
-            <div class="w-[95%] h-[95%] border border-dashed border-sentrl-blue/30 rounded-full"></div>
-        </div>
-
-    </main>
-
-    <footer class="relative z-50 px-10 pb-10 w-full flex items-end justify-between">
-        
-        <div class="hud-glass p-0 w-full max-w-lg rounded-sm flex overflow-hidden">
-            <div class="w-32 bg-black/60 relative border-r border-white/10">
-                <svg class="absolute inset-0 w-full h-full text-sentrl-blue" viewBox="0 0 100 50" preserveAspectRatio="none">
-                    <path d="M0,50 L10,30 L20,35 L30,20 L40,25 L50,10 L60,25 L70,15 L80,30 L90,20 L100,50 Z" fill="rgba(0, 102, 255, 0.15)" stroke="currentColor" stroke-width="1.5"/>
-                </svg>
-            </div>
-
-            <div class="p-5 flex-1 flex flex-col justify-center">
-                <h3 class="font-sans font-bold text-lg uppercase tracking-widest text-white mb-1">Root Analysis</h3>
-                <p class="font-mono text-[10px] text-slate-400">
-                    Detailed telemetry scan complete. <br> No critical errors found.
-                </p>
-            </div>
-            
-            <div class="w-14 bg-sentrl-blue/10 hover:bg-sentrl-blue text-white flex items-center justify-center transition-colors cursor-pointer border-l border-white/10 group">
-                <svg class="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </div>
-        </div>
-
-        <div class="hud-glass w-40 h-40 rounded-full flex items-center justify-center relative hover:border-sentrl-cyan/50 transition-colors cursor-pointer group">
-            <div class="text-center">
-                <div class="text-3xl font-mono font-bold text-white group-hover:text-sentrl-cyan">98%</div>
-                <div class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mt-1">Efficiency</div>
-            </div>
-            <div class="absolute inset-2 border-t border-sentrl-cyan rounded-full animate-spin" style="animation-duration: 3s;"></div>
-        </div>
-
-    </footer>
-
-    <div class="absolute inset-0 pointer-events-none" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 3px); z-index: 40;"></div>
-
 </body>
 </html>
