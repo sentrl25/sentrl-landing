@@ -38,9 +38,10 @@
             margin: 0;
         }
 
-        /* LOGO FIX:
+        /* LOGO CALIBRATION:
            1. Invert(1) turns Black Text -> White.
            2. Hue-rotate(180deg) fixes the icon color shift caused by invert.
+           3. Brightness(1.5) makes it pop on the dark background.
         */
         .logo-calibrated {
             filter: invert(1) hue-rotate(180deg) brightness(1.5);
