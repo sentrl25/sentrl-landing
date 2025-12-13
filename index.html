@@ -1,485 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <title>SENTRL — Engineered Automation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENTRL AUSTRALIA | Intelligent Infrastructure</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --c1: #53FEFF; /* primary neon */
-      --c2: #27ECFF; /* soft secondary */
-      --c3: #0094FF; /* accent blue */
-      --bg: #03070D; /* background */
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        sentrl: {
+                            base: '#020617', // Deepest Slate
+                            surface: '#0f172a', // Card Surface
+                            accent: '#00A3FF', // The Electric Blue from logo
+                            glow: '#38bdf8', // Cyan Glow
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
 
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-    }
-
-    /* subtle HUD-style background glow under content */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -25%;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(0,255,255,0.16) 0, transparent 50%),
-        radial-gradient(circle at 90% 100%, rgba(0,148,255,0.22) 0, transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* HERO */
-    .hero {
-      width: 100%;
-      aspect-ratio: 16/7;
-      overflow: hidden;
-      background: #000000;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: drop-shadow(0 0 22px var(--c1)) brightness(1.18);
-    }
-
-    /* hero title overlay INSIDE video */
-    .hero-title {
-      position: absolute;
-      left: 50%;
-      bottom: 12%;
-      transform: translateX(-50%);
-      text-align: center;
-      width: 100%;
-      pointer-events: none;
-      z-index: 3;
-      animation: heroFadeUp 600ms ease-out 120ms both;
-    }
-
-    .hero-title .title {
-      font-size: clamp(2.5rem, 4.4vw, 3.3rem);
-      font-weight: 700;
-      color: #f8feff;
-      letter-spacing: -0.02em;
-      margin: 0;
-      text-shadow:
-        0 0 4px #00ffff,
-        0 0 12px #00ffff,
-        0 0 26px #0094ff,
-        0 0 42px rgba(0,148,255,0.85);
-    }
-
-    @keyframes heroFadeUp {
-      from { opacity: 0; transform: translate(-50%, 14px); }
-      to   { opacity: 1; transform: translate(-50%, 0); }
-    }
-
-    /* GENERAL WRAPPER */
-    .wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .sub {
-      font-size: 1.05rem;
-      max-width: 760px;
-      margin: 1.4rem auto 2.8rem auto;
-      opacity: 0.9;
-      line-height: 1.55;
-      color: #d8faff;
-    }
-
-    /* CTA BUTTONS */
-    @keyframes ctaPulse {
-      0%   { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
-      50%  { box-shadow:0 0 10px rgba(0,255,255,1), 0 0 28px rgba(0,255,255,1), 0 0 58px rgba(0,148,255,1); }
-      100% { box-shadow:0 0 6px rgba(0,255,255,.9), 0 0 20px rgba(0,255,255,.85), 0 0 40px rgba(0,148,255,.9); }
-    }
-
-    .cta {
-      display: inline-block;
-      padding: 1rem 2.4rem;
-      border-radius: 40px;
-      background: radial-gradient(circle at 30% 0%, #1b2733 0%, #00ffff 70%, #0094ff 100%);
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow:
-        0 0 6px rgba(0,255,255,.9),
-        0 0 20px rgba(0,255,255,.85),
-        0 0 40px rgba(0,148,255,.9);
-      text-shadow: 0 0 3px rgba(255,255,255,1);
-      border: 1px solid #53feff;
-      text-decoration: none;
-      transition: transform 0.22s ease-out;
-      cursor: pointer;
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      animation: ctaPulse 900ms ease-in-out infinite;
-    }
-
-    .grid {
-      max-width: 950px;
-      margin: 3.2rem auto 0;
-      display: grid;
-      gap: 1.6rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .card {
-      padding: 1.8rem;
-      background: rgba(6, 14, 26, 0.96);
-      border: 1px solid rgba(83, 254, 255, 0.14);
-      border-radius: 14px;
-      backdrop-filter: blur(8px);
-      transition: 0.25s;
-      text-align: left;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);
-    }
-
-    .card:hover {
-      border-color: var(--c1);
-      box-shadow: 0 0 24px rgba(83, 254, 255, 0.35);
-      transform: translateY(-3px);
-    }
-
-    .card-title {
-      color: var(--c1);
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 0.55rem;
-      text-shadow: 0 0 6px rgba(0,255,255,0.6);
-    }
-
-    .card-txt {
-      font-size: 0.85rem;
-      opacity: 0.82;
-      line-height: 1.45;
-      color: #e3f7ff;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(183, 244, 255, 0.9);
-      margin-bottom: 0.75rem;
-      text-shadow:
-        0 0 4px #00ffff,
-        0 0 12px #00ffff,
-        0 0 26px #0094ff;
-    }
-
-    .section-heading {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #f8fcff;
-      margin-bottom: 1rem;
-      text-shadow:
-        0 0 4px #00ffff,
-        0 0 12px #00ffff,
-        0 0 26px #0094ff;
-    }
-
-    .vp-list {
-      list-style: none;
-      padding: 0;
-      margin: 1.8rem auto 0 auto;
-      max-width: 720px;
-      text-align: left;
-    }
-
-    .vp-list li {
-      font-size: 0.95rem;
-      margin-bottom: 0.85rem;
-      color: #d8faff;
-    }
-
-    .vp-bullet {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--c1);
-      margin-right: 0.5rem;
-      box-shadow: 0 0 10px rgba(83, 254, 255, 0.8);
-      vertical-align: middle;
-    }
-
-    .contact h2 {
-      color: #f8feff;
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      text-shadow:
-        0 0 4px #00ffff,
-        0 0 12px #00ffff,
-        0 0 26px #0094ff;
-    }
-
-    .contact-sub {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      max-width: 640px;
-      margin: 0 auto 2rem auto;
-      color: #d8faff;
-    }
-
-    .input {
-      width: 100%;
-      padding: 0.85rem;
-      margin-bottom: 1rem;
-      background: #0A101A;
-      border: 1px solid #122029;
-      color: #ffffff;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
-
-    .input::placeholder {
-      color: #6e8ca0;
-    }
-
-    .full {
-      width: 100%;
-      margin-top: 0.4rem;
-    }
-
-    .ftr {
-      text-align: center;
-      margin-top: 4rem;
-      padding: 2.2rem 1rem;
-      color: #85b7c9;
-      font-size: 0.8rem;
-      border-top: 1px solid rgba(83, 254, 255, 0.18);
-      position: relative;
-      z-index: 2;
-      background: radial-gradient(circle at 50% -80%, rgba(0,255,255,0.12) 0, transparent 60%);
-    }
-
-    @media (max-width: 640px) {
-      .wrap {
-        padding: 3rem 1.25rem;
-      }
-      .hero-title {
-        bottom: 9%;
-      }
-      .hero-title .title {
-        font-size: clamp(2.1rem, 6vw, 2.7rem);
-      }
-    }
-    /* VALUE PROP LIST FIX */
-.vp-list {
-  list-style: none;
-  padding: 0;
-  margin: 2rem auto 0 auto;
-  max-width: 620px;
-  text-align: left;
-  line-height: 1.55;
-}
-
-.vp-list li {
-  margin-bottom: 1.1rem;
-}
-
-.vp-bullet {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--c1);
-  margin-right: 0.55rem;
-  box-shadow: 0 0 12px rgba(83, 254, 255, 0.75);
-  vertical-align: middle;
-}
-
-  </style>
+    <style>
+        /* Custom Utilities for Neon Effects */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 163, 255, 0.4);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(14, 165, 233, 0.15) 0%, rgba(2, 6, 23, 0) 50%);
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
+<body class="bg-sentrl-base text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-sentrl-accent selection:text-white">
 
-<body>
-  <!-- HERO -->
-  <div class="hero">
-    <video src="sentrl-hero.mp4" autoplay muted playsinline loop></video>
+    <div class="fixed inset-0 z-0 opacity-[0.05] bg-[size:50px_50px] bg-grid-pattern pointer-events-none"></div>
 
-    <!-- TITLE HOVERING INSIDE VIDEO -->
-    <div class="hero-title">
-      <div class="title">Automate. Operate. Dominate.</div>
-    </div>
-  </div>
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-sentrl-base/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="w-40">
+                <img src="sentrl transparent (1).png" alt="SENTRL Logo" class="h-auto w-full object-contain">
+            </div>
 
-  <!-- HERO SUBTITLE + CTA -->
-  <div class="wrap">
-    <div class="sub">
-      SENTRL combines systems engineering, AI automation, and workflow architecture to help businesses operate smarter, faster, and with greater precision.
-    </div>
-    <a href="#contact" class="cta">Activate Your Automation Advantage</a>
-  </div>
+            <div class="hidden md:flex space-x-8 text-sm font-mono tracking-widest uppercase">
+                <a href="#features" class="hover:text-sentrl-accent transition-colors">Solutions</a>
+                <a href="#platform" class="hover:text-sentrl-accent transition-colors">Platform</a>
+                <a href="#tech" class="hover:text-sentrl-accent transition-colors">Technology</a>
+            </div>
 
-  <!-- SENTRL PROTOCOL -->
-  <div class="wrap" id="sentrl-protocol">
-    <div class="section-label">THE SENTRL PROTOCOL</div>
-    <div class="section-heading">Your unfair advantage, engineered into six pillars.</div>
-    <div class="sub" style="margin-top:0.5rem;margin-bottom:2.5rem;">
-      SENTRL — Systems Engineering Network for Testing, Research &amp; Laboratories — structures your automation strategy into a disciplined technical framework.
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="card-title">S — Systems Engineering</div>
-        <div class="card-txt">
-          Foundational architecture that eliminates inefficiency and creates predictable, intelligent operational flow across your business.
+            <a href="#contact" class="hidden md:block px-6 py-2 border border-sentrl-accent/30 text-sentrl-accent font-mono text-sm uppercase tracking-wide hover:bg-sentrl-accent hover:text-white transition-all duration-300">
+                Client Login
+            </a>
         </div>
-      </div>
+    </nav>
 
-      <div class="card">
-        <div class="card-title">E — Engineering Network</div>
-        <div class="card-txt">
-          Interconnected automation layers working together as a unified, self-correcting operational engine instead of isolated tools.
+    <header class="relative z-10 min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 hero-gradient pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            
+            <div class="space-y-8 animate-fade-in-up">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sentrl-accent/10 border border-sentrl-accent/20">
+                    <span class="w-2 h-2 rounded-full bg-sentrl-accent animate-pulse"></span>
+                    <span class="text-xs text-sentrl-accent font-mono tracking-widest uppercase">System Online v2.0</span>
+                </div>
+
+                <h1 class="text-5xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] font-mono">
+                    COMMAND YOUR <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-accent to-cyan-200 text-glow">INFRASTRUCTURE</span>
+                </h1>
+
+                <p class="text-lg text-slate-400 max-w-lg leading-relaxed">
+                    Centralize your digital twin operations with military-grade precision. 
+                    Monitor, automate, and deploy assets across the grid in real-time.
+                </p>
+
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#deploy" class="btn-glow px-8 py-4 bg-sentrl-accent text-white font-bold tracking-wide uppercase rounded-sm transition-transform hover:-translate-y-1">
+                        Initiate Access
+                    </a>
+                    <a href="#demo" class="px-8 py-4 border border-slate-700 hover:border-white text-white font-bold tracking-wide uppercase rounded-sm transition-colors">
+                        View Schema
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative group perspective-1000">
+                <div class="absolute -inset-1 bg-gradient-to-r from-sentrl-accent to-purple-600 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+                <img src="merch.jpg" alt="SENTRL Interface Monitor" class="relative rounded-lg shadow-2xl border border-white/10 transform transition duration-700 hover:scale-[1.02] hover:rotate-1">
+                
+                <div class="absolute -bottom-6 -left-6 bg-sentrl-surface p-4 border border-sentrl-accent/30 rounded backdrop-blur hidden lg:block">
+                    <div class="flex items-center gap-3">
+                        <div class="h-2 w-2 bg-green-500 rounded-full animate-ping"></div>
+                        <span class="font-mono text-xs text-sentrl-accent">LIVE DATA FEED: CONNECTED</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <div class="card">
-        <div class="card-title">N — Network for Testing</div>
-        <div class="card-txt">
-          Continuous optimisation loops that validate changes, expose bottlenecks early, and protect performance under load.
+    <section class="relative z-10 border-y border-white/5 bg-sentrl-surface/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+            <div class="space-y-2">
+                <h3 class="text-4xl font-mono font-bold text-white">0.02s</h3>
+                <p class="text-sm text-slate-400 uppercase tracking-widest">Latency Response</p>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-4xl font-mono font-bold text-white">100%</h3>
+                <p class="text-sm text-slate-400 uppercase tracking-widest">Uptime Guarantee</p>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-4xl font-mono font-bold text-white">AES-256</h3>
+                <p class="text-sm text-slate-400 uppercase tracking-widest">Encrypted Core</p>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <div class="card-title">T — Testing &amp; Validation</div>
-        <div class="card-txt">
-          Audit-ready documentation, structured evidence, and integrity checks so every automated workflow is defensible and traceable.
+    <section id="features" class="relative z-10 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white font-mono mb-4">CORE CAPABILITIES</h2>
+                <div class="h-1 w-20 bg-sentrl-accent"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-8 rounded-xl hover:border-sentrl-accent/50 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-sentrl-accent/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-sentrl-accent/20 transition-colors">
+                        <svg class="w-6 h-6 text-sentrl-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Digital Twin Visualization</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Real-time 3D rendering of complex city infrastructure. Monitor assets as if you were physically on-site.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-xl hover:border-sentrl-accent/50 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-sentrl-accent/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-sentrl-accent/20 transition-colors">
+                        <svg class="w-6 h-6 text-sentrl-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Predictive Automation</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">AI-driven algorithms that predict system loads and automate resource distribution before failures occur.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-xl hover:border-sentrl-accent/50 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-sentrl-accent/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-sentrl-accent/20 transition-colors">
+                        <svg class="w-6 h-6 text-sentrl-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Sovereign Security</h3>
+                    <p class="text-slate-400 leading-relaxed text-sm">Data stays in Australia. Enterprise-grade encryption designed for critical national infrastructure.</p>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <div class="card-title">R — Research Architecture</div>
-        <div class="card-txt">
-          Deep operational mapping that reveals automation leverage points, risk zones, and high-value optimisation pathways.
+    <section class="relative z-10 py-24 bg-black/30">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2">
+                <div class="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-slate-900 to-black flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                    <div class="relative flex items-center justify-center">
+                         <div class="absolute w-40 h-40 bg-sentrl-accent/20 rounded-full animate-ping"></div>
+                         <div class="absolute w-32 h-32 bg-sentrl-accent/40 rounded-full blur-xl"></div>
+                         <svg class="w-16 h-16 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-1/2 space-y-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-white font-mono">
+                    ENGINEERED FOR <span class="text-sentrl-accent">VELOCITY</span>
+                </h2>
+                <p class="text-slate-400 text-lg leading-relaxed">
+                    Legacy systems cannot keep pace with modern urban density. SENTRL aggregates disparate data streams into a singular, cohesive dashboard.
+                </p>
+                <ul class="space-y-4 pt-4">
+                    <li class="flex items-center space-x-3">
+                        <span class="w-1.5 h-1.5 bg-sentrl-accent rounded-full"></span>
+                        <span class="text-slate-300 font-mono text-sm uppercase">Seamless API Integration</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <span class="w-1.5 h-1.5 bg-sentrl-accent rounded-full"></span>
+                        <span class="text-slate-300 font-mono text-sm uppercase">Zero-Trust Architecture</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <span class="w-1.5 h-1.5 bg-sentrl-accent rounded-full"></span>
+                        <span class="text-slate-300 font-mono text-sm uppercase">Hyper-Scale Deployment</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="card">
-        <div class="card-title">L — Laboratories of Innovation</div>
-        <div class="card-txt">
-          Controlled environments for modelling, simulating, and deploying next-generation workflows with speed and reduced risk.
+    <section class="relative py-32 overflow-hidden text-center">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-sentrl-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6 space-y-8">
+            <h2 class="text-4xl md:text-6xl font-bold text-white font-mono uppercase tracking-tight">
+                Ready to take <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-accent to-white">Control?</span>
+            </h2>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                Join the leading organizations modernizing their operational stack with SENTRL.
+            </p>
+            <div class="pt-8">
+                <button class="btn-glow relative px-10 py-5 bg-white text-sentrl-base font-bold text-lg tracking-widest uppercase rounded-sm hover:bg-slate-200 transition-all group overflow-hidden">
+                    <span class="relative z-10">Deploy Now</span>
+                    <div class="absolute inset-0 h-full w-full bg-sentrl-accent/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- VALUE PROP -->
-  <div class="wrap" id="value">
-    <div class="section-label">WHY HIGH-PERFORMANCE OPERATORS CHOOSE SENTRL</div>
-    <div class="section-heading">Speed, control, and results that compound.</div>
-    <ul class="vp-list">
-      <li>
-        <span class="vp-bullet"></span>
-        <strong>Deploy automations 10× faster</strong> with engineered workflows instead of patched systems, turning speed into real operational savings.
-      </li>
-      <li>
-        <span class="vp-bullet"></span>
-        <strong>Eliminate operational friction</strong> by removing human bottlenecks, delays, and duplicated work across teams so efficiency directly translates into cost savings.
-      </li>
-      <li>
-        <span class="vp-bullet"></span>
-        <strong>Scale with confidence</strong> using systems designed for load, stress, and real-world complexity.
-      </li>
-    </ul>
-  </div>
-
-  <!-- CONTACT -->
-  <div id="contact" class="wrap contact" style="padding-top:3rem;">
-    <div class="section-label">THE ACCESS POINT</div>
-    <h2>Claim Your SENTRL Advantage Today.</h2>
-    <div class="contact-sub">
-      If your competitors adopt this before you do, they will outpace you—fast. Share a snapshot of your operation and we will map where SENTRL can deploy immediate impact.
-    </div>
-
-    <!-- hidden iframe to swallow FormSubmit thank-you page -->
-    <iframe name="sentrl_hidden_iframe" style="display:none;"></iframe>
-
-    <form 
-  action="https://formspree.io/f/xldqpwyp" 
-  method="POST" 
-  class="contact-box" 
-  style="max-width:650px;margin:0 auto;text-align:left;"
->
-
-  <!-- Hidden fields -->
-  <input type="hidden" name="_subject" value="New SENTRL Website Inquiry">
-  <input type="hidden" name="_autoresponse" value="Thanks for reaching out to SENTRL. Your message has been received and our team will respond shortly.">
-
-<input type="hidden" name="_redirect" value="success.html">
-
-  <!-- Visible fields -->
-  <input class="input" type="text" name="name" placeholder="Full Name" required>
-  <input class="input" type="text" name="company" placeholder="Company">
-  <input class="input" type="email" name="email" placeholder="Work Email" required>
-  <textarea class="input" name="message" rows="4" placeholder="How can SENTRL help?" required></textarea>
-
-  <button class="cta full" type="submit">Submit</button>
-
-</form>
-
-
- <div class="ftr">
-  SENTRL – Systems Engineering Network for Testing, Research &amp; Laboratories<br>
-  © 2025 SENTRL. All rights reserved.
-</div>
-
-<script>
-  const form = document.querySelector('form[action="https://formspree.io/f/xldqpwyp"]');
-
-  if (form) {
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        window.location.href = 'success.html';
-      } catch (err) {
-        alert('There was an error sending your message.');
-      }
-    });
-  }
-</script>
+    <footer class="border-t border-white/5 bg-black py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="w-32 opacity-50 hover:opacity-100 transition-opacity">
+                 <img src="sentrl transparent (1).png" alt="SENTRL Logo" class="h-auto w-full grayscale">
+            </div>
+            
+            <p class="text-slate-600 text-sm font-mono">
+                &copy; 2024 SENTRL AUSTRALIA. SYSTEMS SECURED.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
-
-
-
-
-
-
