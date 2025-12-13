@@ -3,234 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRL | Digital Infrastructure</title>
+    <title>SENTRL | SYSTEM ACCESS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Rajdhani', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                        mono: ['Share Tech Mono', 'monospace'],
                     },
                     colors: {
-                        sentrl: {
-                            bg: '#030508',       // Pure void black/blue
-                            panel: '#0a101a',    // Dark panel
-                            primary: '#0066FF',  // The darker blue in your gradient
-                            cyan: '#00D4FF',     // The lighter cyan in your gradient
-                        }
+                        neon: '#00F0FF',
+                        void: '#020204',
+                        glass: 'rgba(2, 2, 4, 0.6)'
                     },
                     backgroundImage: {
-                        'cyber-grid': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'scanlines': 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))',
                     },
                     animation: {
-                        'scan': 'scan 4s linear infinite',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        scan: {
-                            '0%': { transform: 'translateY(-100%)' },
-                            '100%': { transform: 'translateY(100%)' },
-                        }
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glitch': 'glitch 1s linear infinite',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* HUD Tech Aesthetics */
-        body { background-color: #030508; color: #e2e8f0; }
-        
-        .tech-border {
-            position: relative;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            background: rgba(3, 5, 8, 0.7);
-        }
-        .tech-border::before {
-            content: '';
-            position: absolute;
-            top: -1px; left: -1px;
-            width: 10px; height: 10px;
-            border-top: 2px solid #00D4FF;
-            border-left: 2px solid #00D4FF;
-        }
-        .tech-border::after {
-            content: '';
-            position: absolute;
-            bottom: -1px; right: -1px;
-            width: 10px; height: 10px;
-            border-bottom: 2px solid #00D4FF;
-            border-right: 2px solid #00D4FF;
+        body {
+            background-color: #020204;
+            color: #fff;
+            overflow-x: hidden;
         }
 
-        .neon-text {
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        /* CRT Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 999;
         }
-        
-        .image-overlay-gradient {
-            background: linear-gradient(180deg, rgba(3,5,8,0) 0%, #030508 100%);
+
+        /* Glitch Text Effect */
+        .glitch-wrapper { position: relative; }
+        .glitch-wrapper::before, .glitch-wrapper::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
         }
+        .glitch-wrapper::before {
+            left: 2px; text-shadow: -1px 0 #ff00c1; clip-path: inset(44% 0 61% 0); animation: glitch-anim 3s infinite linear alternate-reverse;
+        }
+        .glitch-wrapper::after {
+            left: -2px; text-shadow: -1px 0 #00fff9; clip-path: inset(54% 0 10% 0); animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip-path: inset(40% 0 61% 0); }
+            20% { clip-path: inset(92% 0 1% 0); }
+            40% { clip-path: inset(43% 0 1% 0); }
+            60% { clip-path: inset(25% 0 58% 0); }
+            80% { clip-path: inset(54% 0 7% 0); }
+            100% { clip-path: inset(58% 0 43% 0); }
+        }
+
+        /* Hologram Image Handling */
+        .hologram-container {
+            position: relative;
+            /* Mask creates the fade-out effect on the edges */
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+        }
+        .hologram-img {
+            filter: contrast(120%) brightness(110%) saturate(120%) hue-rotate(5deg);
+            mix-blend-mode: screen;
+            opacity: 0.9;
+        }
+
+        /* HUD Borders */
+        .hud-border-top {
+            border-top: 1px solid rgba(0, 240, 255, 0.3);
+            position: relative;
+        }
+        .hud-border-top::before {
+            content: ''; position: absolute; top: -1px; left: 0; width: 100px; height: 3px; background: #00F0FF;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #00F0FF; }
     </style>
 </head>
-<body class="overflow-x-hidden selection:bg-sentrl-cyan selection:text-black">
-
-    <div class="fixed inset-0 z-0 bg-cyber-grid bg-[size:40px_40px] opacity-10 pointer-events-none"></div>
+<body class="antialiased">
     
-    <nav class="fixed top-0 w-full z-50 border-b border-sentrl-cyan/20 bg-sentrl-bg/90 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-48 relative">
-                    <img src="sentrl transparent (1).png" alt="SENTRL" class="w-full h-auto object-contain brightness-125 drop-shadow-[0_0_8px_rgba(0,212,255,0.3)]">
-                </div>
-            </div>
+    <div class="scanlines"></div>
 
-            <div class="hidden md:flex items-center space-x-8 font-tech text-lg tracking-widest uppercase text-slate-400">
-                <a href="#" class="hover:text-sentrl-cyan hover:drop-shadow-[0_0_5px_#00D4FF] transition-all">Platform</a>
-                <a href="#" class="hover:text-sentrl-cyan hover:drop-shadow-[0_0_5px_#00D4FF] transition-all">Technology</a>
-                <a href="#" class="hover:text-sentrl-cyan hover:drop-shadow-[0_0_5px_#00D4FF] transition-all">About Us</a>
-            </div>
-
-            <a href="#" class="group relative px-6 py-2 overflow-hidden bg-transparent border border-sentrl-cyan text-sentrl-cyan font-tech font-bold uppercase tracking-wider hover:bg-sentrl-cyan hover:text-black transition-all duration-300">
-                <span class="relative z-10">System Login</span>
-                <div class="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 skew-x-12"></div>
-            </a>
-        </div>
-    </nav>
-
-    <header class="relative z-10 min-h-screen flex flex-col justify-center pt-24">
+    <div class="relative min-h-screen flex flex-col justify-between p-6 md:p-12 border-l border-r border-white/5 mx-auto max-w-[1800px]">
         
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-sentrl-primary/20 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-sentrl-cyan/10 rounded-full blur-[120px] pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
+        <header class="flex justify-between items-start z-50">
+            <div class="w-48">
+                <img src="sentrl transparent (1).png" alt="SENTRL" class="w-full h-auto drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]">
+            </div>
             
-            <div class="lg:col-span-6 space-y-8">
-                <div class="inline-flex items-center space-x-2 border border-sentrl-cyan/30 bg-sentrl-cyan/5 px-3 py-1 text-sentrl-cyan text-xs font-tech tracking-widest uppercase">
-                    <span class="w-2 h-2 bg-sentrl-cyan rounded-full animate-pulse"></span>
-                    <span>System Status: Optimal</span>
+            <div class="hidden md:flex gap-12 font-mono text-sm tracking-widest text-neon/70">
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] opacity-50">GRID STATUS</span>
+                    <span class="text-white animate-pulse-fast">ONLINE</span>
                 </div>
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] opacity-50">ENCRYPTION</span>
+                    <span class="text-white">AES-256</span>
+                </div>
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] opacity-50">REGION</span>
+                    <span class="text-white">AUS-EAST-1</span>
+                </div>
+            </div>
+        </header>
 
-                <h1 class="text-6xl md:text-8xl font-bold font-tech uppercase leading-[0.9] text-white">
-                    Future <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-primary to-sentrl-cyan neon-text">Proofed</span> <br>
-                    Control
+        <main class="grid lg:grid-cols-12 gap-12 items-center mt-12 mb-12 relative z-10">
+            
+            <div class="lg:col-span-5 space-y-8">
+                <div class="w-12 h-1 bg-neon shadow-[0_0_10px_#00F0FF]"></div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-black uppercase leading-[0.85] tracking-tight">
+                    <div class="glitch-wrapper" data-text="TOTAL">TOTAL</div>
+                    <div class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-800">DOMAIN</div>
+                    <div class="text-neon drop-shadow-[0_0_10px_rgba(0,240,255,0.8)]">AWARENESS</div>
                 </h1>
 
-                <p class="text-slate-400 text-lg max-w-md font-light leading-relaxed border-l-2 border-sentrl-primary/50 pl-6">
-                    A hyper-converged digital twin platform for Australia's critical infrastructure. Monitor, analyze, and automate in real-time.
+                <p class="font-mono text-gray-400 max-w-md border-l border-neon/30 pl-4 text-sm md:text-base leading-relaxed">
+                    :: INITIALIZING SEQUENCE<br>
+                    The definitive digital twin platform for sovereign infrastructure. Monitor complex urban systems with military precision.
                 </p>
 
-                <div class="flex items-center gap-6 pt-4">
-                    <button class="bg-gradient-to-r from-sentrl-primary to-sentrl-cyan text-black font-bold font-tech text-xl px-10 py-4 uppercase tracking-wide hover:shadow-[0_0_20px_rgba(0,212,255,0.4)] transition-shadow clip-path-polygon">
-                        Initialize
-                    </button>
-                    <span class="text-slate-500 font-tech uppercase tracking-widest text-sm cursor-pointer hover:text-white transition-colors">>> View Documentation</span>
+                <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                    <a href="#" class="group relative px-8 py-4 bg-neon/10 border border-neon text-neon font-display font-bold uppercase tracking-widest overflow-hidden hover:text-black transition-colors duration-300">
+                        <span class="relative z-10">Initialize System</span>
+                        <div class="absolute inset-0 bg-neon transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </a>
+                    
+                    <a href="#" class="px-8 py-4 border border-white/10 text-gray-400 font-mono text-xs uppercase tracking-widest hover:border-white hover:text-white transition-all flex items-center justify-center">
+                        [ Read Technical Brief ]
+                    </a>
                 </div>
             </div>
 
-            <div class="lg:col-span-6 relative">
-                <div class="absolute -inset-4 border border-sentrl-cyan/20 opacity-50"></div>
-                <div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-sentrl-cyan"></div>
-                <div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-sentrl-cyan"></div>
-
-                <div class="relative rounded overflow-hidden shadow-2xl border border-sentrl-panel group">
-                    <div class="absolute inset-0 bg-sentrl-bg/40 group-hover:bg-transparent transition-all duration-500 z-10"></div>
-                    
-                    <img src="merch.jpg" alt="SENTRL Dashboard" class="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105">
-                    
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-sentrl-cyan/20 to-transparent h-[10%] w-full animate-scan z-20 pointer-events-none opacity-50"></div>
+            <div class="lg:col-span-7 relative h-[50vh] lg:h-[70vh] flex items-center justify-center">
+                
+                <div class="absolute w-[80%] h-[80%] border border-white/5 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                <div class="absolute w-[60%] h-[60%] border border-dashed border-neon/20 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+                
+                <div class="hologram-container w-full h-full relative z-10 flex items-center justify-center">
+                    <img src="merch.jpg" class="hologram-img w-full h-full object-cover rounded-lg mask-image-gradient" style="object-position: center;">
                 </div>
 
-                <div class="absolute -bottom-10 -left-10 bg-black/80 backdrop-blur border border-sentrl-cyan/30 p-4 hidden md:block z-30">
-                    <div class="flex items-center gap-4 text-xs font-tech text-sentrl-cyan">
-                        <div>
-                            <div class="text-slate-500">LATENCY</div>
-                            <div class="text-xl font-bold">12ms</div>
-                        </div>
-                        <div class="h-8 w-px bg-white/20"></div>
-                        <div>
-                            <div class="text-slate-500">NODES</div>
-                            <div class="text-xl font-bold">8,402</div>
-                        </div>
+                <div class="absolute top-10 right-10 bg-black/80 backdrop-blur border border-neon/50 p-4 font-mono text-xs z-20">
+                    <div class="flex justify-between gap-8 mb-2">
+                        <span class="text-gray-500">TARGET</span>
+                        <span class="text-neon">SECURE</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-1 mt-1">
+                        <div class="bg-neon h-1 w-[70%] animate-pulse"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="relative z-10 py-32 bg-sentrl-panel border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
+                <div class="absolute bottom-20 left-0 lg:-left-10 bg-black/80 backdrop-blur border-l-4 border-neon p-4 font-mono text-xs z-20 max-w-[200px]">
+                    <p class="text-white mb-2">> DETECTED ANOMALIES: 0</p>
+                    <p class="text-gray-500">> OPTIMIZATION: 99.8%</p>
+                    <p class="text-gray-500">> LATENCY: 2ms</p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="hud-border-top pt-6 flex flex-col md:flex-row justify-between items-end gap-6 pb-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
                 <div>
-                    <h2 class="text-4xl font-tech font-bold uppercase text-white mb-2">System <span class="text-sentrl-cyan">Capabilities</span></h2>
-                    <p class="text-slate-500 font-mono text-sm">ARCH.V.2.0.4 // DEPLOYED</p>
+                    <h4 class="font-mono text-neon text-xs mb-1">DATA POINTS</h4>
+                    <p class="font-display text-2xl text-white">4.2M+</p>
                 </div>
-                <div class="hidden md:block">
-                     <svg class="w-64 h-8 text-sentrl-primary/40" viewBox="0 0 300 20" fill="currentColor">
-                        <rect x="0" y="8" width="10" height="4"/>
-                        <rect x="15" y="8" width="10" height="4"/>
-                        <rect x="30" y="8" width="10" height="4"/>
-                        <rect x="45" y="8" width="200" height="1"/>
-                        <rect x="250" y="0" width="50" height="20"/>
-                     </svg>
+                <div>
+                    <h4 class="font-mono text-neon text-xs mb-1">UPTIME</h4>
+                    <p class="font-display text-2xl text-white">99.99%</p>
                 </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="tech-border p-8 hover:bg-white/5 transition-colors group">
-                    <div class="text-sentrl-cyan mb-4 opacity-50 group-hover:opacity-100 transition-opacity">01</div>
-                    <h3 class="text-2xl font-tech font-bold text-white mb-4 group-hover:text-sentrl-cyan transition-colors">PREDICTIVE AI CORE</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Algorithms analyze historical data patterns to predict infrastructure stress points before failure occurs.
-                    </p>
-                </div>
-
-                <div class="tech-border p-8 hover:bg-white/5 transition-colors group">
-                    <div class="text-sentrl-cyan mb-4 opacity-50 group-hover:opacity-100 transition-opacity">02</div>
-                    <h3 class="text-2xl font-tech font-bold text-white mb-4 group-hover:text-sentrl-cyan transition-colors">SEAMLESS INTEGRATION</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Universal API adapters allow SENTRL to ingest data from any legacy sensor, drone, or satellite feed instantly.
-                    </p>
-                </div>
-
-                <div class="tech-border p-8 hover:bg-white/5 transition-colors group">
-                    <div class="text-sentrl-cyan mb-4 opacity-50 group-hover:opacity-100 transition-opacity">03</div>
-                    <h3 class="text-2xl font-tech font-bold text-white mb-4 group-hover:text-sentrl-cyan transition-colors">MIL-SPEC SECURITY</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        End-to-end encryption with local Australian data sovereignty guarantees. Your grid data never leaves the shore.
-                    </p>
+                <div>
+                    <h4 class="font-mono text-neon text-xs mb-1">SECURITY</h4>
+                    <p class="font-display text-2xl text-white">FEDRAMP</p>
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <section class="relative py-24 bg-black overflow-hidden">
-        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-            <h2 class="text-5xl md:text-7xl font-tech font-bold text-white mb-8">
-                READY TO <span class="text-transparent bg-clip-text bg-gradient-to-r from-sentrl-cyan to-white">CONNECT?</span>
-            </h2>
-            
-            <form class="max-w-md mx-auto flex gap-0">
-                <input type="email" placeholder="ENTER WORK EMAIL" class="w-full bg-white/5 border border-white/20 text-white px-6 py-4 font-tech focus:outline-none focus:border-sentrl-cyan transition-colors placeholder:text-slate-600">
-                <button class="bg-sentrl-cyan text-black px-8 py-4 font-bold font-tech hover:bg-white transition-colors">
-                    JOIN
-                </button>
-            </form>
-
-            <div class="mt-20 pt-10 border-t border-white/10 flex flex-col md:flex-row items-center justify-between opacity-60">
-                <img src="sentrl transparent (1).png" alt="SENTRL" class="h-8 grayscale hover:grayscale-0 transition-all">
-                <p class="text-xs font-mono text-slate-500 mt-4 md:mt-0">© 2024 SENTRL AUSTRALIA. ALL SYSTEMS NOMINAL.</p>
+            <div class="text-right">
+                 <p class="font-mono text-[10px] text-gray-600 uppercase">
+                    Sentrl Australia Pty Ltd<br>
+                    Restricted Access Only
+                 </p>
             </div>
-        </div>
-        
-        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
-    </section>
+        </footer>
+
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-0" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
 
 </body>
 </html>
