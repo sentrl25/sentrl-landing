@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SENTRL | SYSTEM INTERFACE</title>
+    <title>SENTRL | DIGITAL TWIN INTERFACE</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <script>
@@ -12,15 +14,19 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Rajdhani', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
                         mono: ['Share Tech Mono', 'monospace'],
                     },
                     colors: {
                         sentrl: {
-                            blue: '#0066FF',
-                            cyan: '#00D4FF',
-                            dark: '#02050a'
+                            blue: '#0066FF',   /* Brand Blue */
+                            cyan: '#00D4FF',   /* Electric Cyan */
+                            dark: '#010409',   /* Deep Space Black */
+                            glass: 'rgba(2, 6, 23, 0.7)'
                         }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(0, 212, 255, 0.3)',
                     }
                 }
             }
@@ -29,146 +35,145 @@
 
     <style>
         body {
-            background-color: #000;
-            overflow: hidden;
+            background-color: #010409;
             color: white;
-            margin: 0;
-            padding: 0;
+            overflow: hidden; /* Locks window to behave like a dashboard */
         }
 
-        /* LOGO FILTER FIX:
-           1. invert(1): Turns Black Text -> White. Turns Blue Icon -> Orange.
-           2. hue-rotate(180deg): Turns Orange Icon -> Back to Blue.
+        /* LOGO CORRECTION: 
+           The logo has black text. We invert it (making text white, icon orange).
+           Then we rotate the hue 180deg (making the icon blue again).
         */
-        .logo-fix {
-            filter: invert(1) hue-rotate(180deg) brightness(1.2);
+        .logo-corrected {
+            filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(1.1);
+            max-height: 40px;
+            width: auto;
         }
 
-        /* Background Visual */
-        .digital-twin-bg {
+        /* Background Handling */
+        .dashboard-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('merch.jpg');
             background-size: cover;
             background-position: center;
-            opacity: 0.5;
+            opacity: 0.6; 
             z-index: 0;
-            /* Cool down the image to match the dark UI */
-            filter: contrast(120%) brightness(70%) saturate(100%); 
+            /* Cool filters to match the dark blue aesthetic */
+            filter: contrast(125%) brightness(80%) saturate(110%);
         }
 
-        /* HUD Panels */
+        /* Glass Panels */
         .hud-panel {
-            background: rgba(2, 5, 10, 0.85);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            background: linear-gradient(180deg, rgba(13, 19, 33, 0.9) 0%, rgba(5, 10, 20, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
         }
 
+        /* Navigation Links */
         .nav-link {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+            letter-spacing: 0.1em;
             color: #94a3b8;
-            transition: color 0.3s;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
-        .nav-link:hover { color: #00D4FF; text-shadow: 0 0 8px rgba(0, 212, 255, 0.8); }
-        .nav-link.active { color: white; border-bottom: 2px solid #0066FF; }
+        .nav-link:hover { color: #00D4FF; text-shadow: 0 0 8px rgba(0, 212, 255, 0.6); }
+        .nav-link.active { color: white; border-bottom: 2px solid #0066FF; padding-bottom: 2px; }
 
-        /* Tech Graph CSS */
-        .graph-line {
-            fill: none;
-            stroke: #0066FF;
-            stroke-width: 2;
-            vector-effect: non-scaling-stroke;
+        /* The Circular Gauge Animation */
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        .graph-fill {
-            fill: rgba(0, 102, 255, 0.2);
-            stroke: none;
+        @keyframes spin-reverse {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col justify-between relative">
+<body class="relative h-screen w-screen flex flex-col justify-between">
 
-    <div class="digital-twin-bg"></div>
+    <div class="dashboard-bg"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-sentrl-dark via-transparent to-sentrl-dark opacity-90 pointer-events-none z-0"></div>
 
-    <div class="absolute inset-0 bg-radial-gradient from-transparent to-black pointer-events-none z-0"></div>
-
-    <header class="relative z-50 flex items-center justify-between px-10 py-8 w-full">
-        <div class="w-56">
-            <img src="Untitled (500 x 500 px).png" alt="SENTRL" class="logo-fix w-full h-auto">
+    <header class="relative z-50 px-8 py-6 flex items-center justify-between border-b border-white/5 bg-sentrl-dark/30 backdrop-blur-sm">
+        
+        <div class="flex items-center">
+            <img src="Untitled (500 x 500 px).png" alt="SENTRL" class="logo-corrected">
         </div>
 
-        <nav class="hidden md:flex gap-12 font-mono items-center">
+        <nav class="hidden md:flex items-center gap-12">
             <a href="#" class="nav-link">Solutions</a>
-            <a href="#" class="nav-link active">Platform</a>
-            <a href="#" class="nav-link">Intelligence</a>
-            <div class="h-4 w-px bg-white/20"></div>
-            <a href="#" class="text-sentrl-cyan font-bold uppercase tracking-widest text-sm border border-sentrl-cyan px-6 py-2 hover:bg-sentrl-cyan hover:text-black transition-all">
-                System Login
-            </a>
+            <a href="#" class="nav-link active">Technology</a>
+            <a href="#" class="nav-link">About Us</a>
+            <a href="#" class="nav-link text-sentrl-cyan">Contact</a>
         </nav>
     </header>
 
-    <main class="relative z-10 flex-1 flex items-center justify-center pointer-events-none">
-        
-        <div class="absolute left-10 top-1/3 p-4 border-l-2 border-l-sentrl-cyan pointer-events-auto">
-            <div class="text-[10px] text-sentrl-cyan font-mono mb-2 tracking-[0.2em]">LIVE TELEMETRY</div>
-            <div class="text-sm text-white font-mono leading-loose shadow-black drop-shadow-md">
-                <span class="text-slate-400">TARGET:</span> SECTOR_04<br>
-                <span class="text-slate-400">STATUS:</span> <span class="text-green-400 animate-pulse">OPTIMAL</span><br>
-                <span class="text-slate-400">LOAD:</span> 42%
+    <main class="flex-1 relative z-10 pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+            <div class="w-[600px] h-[600px] border border-sentrl-cyan rounded-full flex items-center justify-center animate-[spin-slow_60s_linear_infinite]">
+                <div class="w-[580px] h-[580px] border border-dashed border-sentrl-blue rounded-full"></div>
             </div>
         </div>
-
-        <div class="w-[500px] h-[500px] border border-sentrl-cyan/10 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite] absolute opacity-50">
-            <div class="absolute top-0 w-1 h-4 bg-sentrl-cyan/50"></div>
-            <div class="absolute bottom-0 w-1 h-4 bg-sentrl-cyan/50"></div>
-            <div class="absolute left-0 w-4 h-1 bg-sentrl-cyan/50"></div>
-            <div class="absolute right-0 w-4 h-1 bg-sentrl-cyan/50"></div>
-        </div>
-
     </main>
 
-    <footer class="relative z-50 px-10 pb-10 w-full flex items-end justify-between">
+    <footer class="relative z-50 px-8 pb-10 flex flex-col md:flex-row items-end justify-between gap-6 w-full max-w-7xl mx-auto">
         
-        <div class="hud-panel p-0 w-full max-w-xl rounded-sm flex overflow-hidden">
-            <div class="w-40 bg-black/60 relative border-r border-white/10">
-                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
-                    <path class="graph-fill" d="M0,50 L10,30 L20,35 L30,20 L40,25 L50,10 L60,25 L70,15 L80,30 L90,20 L100,50 Z" />
-                    <path class="graph-line" d="M0,50 L10,30 L20,35 L30,20 L40,25 L50,10 L60,25 L70,15 L80,30 L90,20 L100,0" />
-                </svg>
-            </div>
-
-            <div class="p-6 flex-1 flex flex-col justify-center">
-                <div class="flex items-center gap-3 mb-2">
-                    <div class="w-2 h-2 bg-sentrl-cyan rounded-full animate-pulse"></div>
-                    <h3 class="font-sans font-bold text-xl uppercase tracking-widest text-white">Root Analysis</h3>
-                </div>
-                <p class="font-mono text-xs text-slate-400 leading-tight">
-                    Infrastructure integrity at 99.9%. <br>
-                    No anomalies detected in current cycle.
-                </p>
-            </div>
+        <div class="hud-panel w-full md:w-96 rounded-sm overflow-hidden flex flex-col relative group hover:border-sentrl-cyan/50 transition-colors">
+            <div class="h-1 w-12 bg-sentrl-blue absolute top-0 left-0"></div>
             
-            <div class="w-16 bg-sentrl-blue/10 hover:bg-sentrl-blue text-white flex items-center justify-center transition-colors cursor-pointer border-l border-white/10">
-                <svg class="w-6 h-6 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            <div class="p-6">
+                <h3 class="text-xl font-display font-bold uppercase tracking-widest text-white mb-1">Root Analysis</h3>
+                <div class="text-[10px] font-mono text-slate-400 mb-4">SECTOR_07 // INFRASTRUCTURE INTEGRITY</div>
+
+                <div class="h-20 w-full bg-black/40 border border-white/5 relative overflow-hidden mb-4">
+                    <svg class="absolute bottom-0 left-0 w-full h-full text-sentrl-cyan" preserveAspectRatio="none" viewBox="0 0 100 50">
+                        <path d="M0,50 L10,35 L20,40 L30,20 L40,25 L50,10 L60,30 L70,25 L80,40 L90,30 L100,50 Z" fill="rgba(0, 212, 255, 0.1)" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div class="text-[10px] font-mono text-slate-500 uppercase">Current Load</div>
+                        <div class="text-2xl font-mono text-white">42%</div>
+                    </div>
+                    <button class="w-8 h-8 flex items-center justify-center border border-white/20 hover:bg-sentrl-cyan hover:text-black hover:border-sentrl-cyan transition-all rounded-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="hidden lg:block text-right opacity-70">
-            <div class="text-[10px] font-mono text-sentrl-cyan uppercase tracking-[0.3em] mb-1">
-                 System Architecture v4.0
+        <div class="hidden lg:block text-center pb-6">
+             <div class="text-[10px] font-mono text-sentrl-cyan tracking-[0.3em] uppercase opacity-70 animate-pulse">
+                 Live Telemetry Feed
+             </div>
+             <div class="text-3xl font-display font-bold text-white tracking-tighter">
+                 SYDNEY NODE_01
+             </div>
+        </div>
+
+        <div class="hud-panel rounded-full w-48 h-48 flex items-center justify-center relative hover:scale-105 transition-transform cursor-pointer group">
+            <div class="absolute inset-0 border border-white/10 rounded-full"></div>
+            <div class="absolute inset-2 border-l border-r border-sentrl-cyan/30 rounded-full animate-[spin-slow_10s_linear_infinite]"></div>
+            <div class="absolute inset-4 border-t border-b border-sentrl-blue/50 rounded-full animate-[spin-reverse_8s_linear_infinite]"></div>
+            
+            <div class="text-center z-10">
+                <div class="text-3xl font-mono font-bold text-white group-hover:text-sentrl-cyan transition-colors">98%</div>
+                <div class="text-[9px] font-mono text-slate-400 uppercase tracking-widest mt-1">Uptime</div>
             </div>
-            <div class="text-[10px] font-mono text-slate-500 uppercase">
-                 Restricted Access // Auth Req
-            </div>
+
+            <div class="absolute inset-0 bg-sentrl-cyan/5 rounded-full blur-xl group-hover:bg-sentrl-cyan/10 transition-colors"></div>
         </div>
 
     </footer>
 
-    <div class="absolute inset-0 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
-    <div class="absolute inset-0 pointer-events-none" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 3px); z-index: 40;"></div>
+    <div class="absolute inset-0 pointer-events-none z-40" style="background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);"></div>
 
 </body>
 </html>
